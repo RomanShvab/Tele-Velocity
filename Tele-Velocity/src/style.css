@@ -1,0 +1,349 @@
+#MainPage {
+    display: flex;
+    height: 100vh;
+}
+
+#LeftSide {
+    padding: 10px;
+    width: 30vw;
+    background-color: rgba(243, 243, 243, 1);
+}
+
+#LeftTopSide {
+    display: flex;
+}
+
+#DropDown {
+
+}
+
+#BurgerButton {
+    background: transparent;
+    border: none;
+    color: grey;
+    margin: 5px;
+    font-size: 16px;
+}
+
+#BurgerIcon {
+    color: black;
+}
+
+#BurgerButton:hover #BurgerIcon{
+    color: grey;
+    cursor: pointer;
+}
+
+#DropDownMenu {
+    position: absolute;
+    border-Radius: 12px;
+    margin-Top: 10px;
+    width: 150px;
+    border: 1px solid #ccc;
+    background: white;
+    box-Shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.DropDownMenuOptions {
+    padding: 10px;
+    cursor: pointer;
+}
+
+#Search {
+    margin-bottom: 10px;
+}
+
+#SearchInput {
+    width: 20vw;
+    height: 15px;
+    padding: 8px;
+    border-Radius: 12px;
+    border: 1px solid #ccc;
+    background-color: #cccccc;
+    outline: none;
+}
+
+#LeftBottomSide {
+
+}
+
+.Contact {
+    display: flex;
+    padding: 10px;
+}
+
+.Contact:hover {
+    background-color: rgba(189, 222, 253, 1);
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.Contact.Selected {
+    background-color: rgba(189, 222, 253, 1);
+    border-radius: 15px;
+}
+
+.ContactIcon {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-Radius: 50%;
+    margin-right: 10px;
+}
+
+.ContactIcon h2{
+    color: white;
+}
+
+.ContactIcon h2 {
+    margin: 0px;
+    font-size: 22px;
+}
+
+.ContactInfo {
+    padding-Left: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: calc(100% - 60px);
+}
+
+.TopContactInfo {
+    display: flex;
+}
+
+.ContactName {
+    color: black;
+    margin: 0px;
+    text-Align: left;
+    font-Size: 16px;
+    margin-bottom: 3px;
+    flex: 5;
+}
+
+.ContactTime {
+    text-align: right;
+    color: #505050FF;
+    margin: 0px;
+    flex: 1;
+    font-Size: 14px;
+    margin-bottom: 3px;
+}
+
+.ContactDesc {
+    color: #505050FF;
+    margin: 0px;
+    text-Align: left;
+    font-Size: 14px;
+}
+
+#Resizer {
+    width: 5px;
+    cursor: col-resize;
+    background: rgba(243, 243, 243, 1);
+}
+
+#RightSide {
+    flex: 1;
+    width: 80vw;
+    background-color: rgba(249, 249, 249, 1);
+}
+
+#RightTopSide {
+    padding: 8px;
+    background-color: rgba(255,255,255, 1);
+    display: flex;
+}
+
+#SelectedContactIcon {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-Radius: 50%;
+    margin-right: 10px;
+}
+
+#SelectedContactIcon h2{
+    color: white;
+}
+
+#SelectedContactIcon h2 {
+    font-size: 20px;
+    margin: 0px;
+}
+
+#SelectedTopContactInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+#SelectedContactName {
+    color: black;
+    text-Align: left;
+    font-Size: 18px;
+}
+
+#SelectedTopContactInfo h2 {
+    margin: 0px;
+}
+
+#SelectedContactOnline {
+    text-align: left;
+    color: #505050FF;
+    font-Size: 14px;
+}
+
+#SelectedContactSettings {
+    margin-left: auto;
+    justify-content: center;
+    display: flex;
+}
+
+#SelectedContactSettings:hover .SelectedContactSettingsIcon{
+    color: grey;
+    cursor: pointer;
+}
+
+#SelectedContactSettings button{
+    border: 0px;
+    background: none;
+}
+
+#SelectedContactSettingsIcon {
+    color: black;
+}
+
+#BackgroundChat {
+    background-color: rgba(249, 249, 249, 1);
+    padding-bottom: 20px;
+}
+
+#RightMidleSide {
+    height: calc(100vh - 56px - 90px);
+}
+
+#RightBottomSide {
+    height: 50px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    margin: 20px 20px 0px 20px;
+    display: flex;
+}
+
+#Attach {
+    background-color: rgba(0,0,0,0);
+    border: 0px;
+    /*border: solid 1px black;*/
+    border-radius: 30px;
+    height: 50px;
+    width: 50px;
+}
+
+#Clip {
+    color: black;
+}
+
+#Attach:hover #Clip {
+    color: grey;
+    cursor: pointer;
+}
+
+#MessageInput {
+    margin-left: 10px;
+    width: calc(100% - 100px);
+    background-color: white;
+    border: 0px;
+    color: black;
+    font-size: 16px;
+}
+
+#MessageInput:focus {
+    border: solid 0px;
+    outline: none;
+}
+
+#Send {
+    background-color: rgba(0,100,146,1);
+    border: 0px;
+    border-radius: 30px;
+    height: 50px;
+    width: 50px;
+    align-items: center;
+}
+
+#Send:hover {
+    background-color: rgb(0, 84, 122);
+    cursor: pointer;
+}
+
+#SendIcon {
+    color: white;
+}
+
+#SelectedContactSettingsProfileIcon {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 10vw;
+    height: 10vw;
+    border-Radius: 50%;
+    margin: 4vw;
+}
+
+#SelectedContactSettingsProfileIcon h2 {
+    color: white;
+    font-size: 4vw;
+    margin: 0px;
+}
+
+#TopLeftSettingsContactSide {
+    display: flex;
+    border-radius: 35px;
+    margin: 20px;
+    width: 50vw;
+    background-color: #ffffff;
+    padding-bottom: 20px;
+}
+
+#Description {
+    margin-top: 4vw;
+    width: 30vw;
+}
+
+#Description h2{
+    font-size: 4vw;
+    text-align: left;
+    margin: 0px;
+}
+
+#Description p {
+    margin-top: 6px;
+    text-align: left;
+    font-size: 16px;
+}
+
+#Description button {
+    margin-top: 20px;
+    padding-left: 25px;
+    display: flex;
+    align-items: center;
+    width: 220px;
+    height: 50px;
+    color: white;
+    background-color: rgba(2,104,157,1);
+    border: 0px;
+    border-radius: 50px;
+}
+
+#Description button:hover {
+    background-color: rgb(0, 84, 122);
+    cursor: pointer;
+}
+
+#MessageIcon {
+    margin-right: 10px;
+}
