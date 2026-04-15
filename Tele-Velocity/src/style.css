@@ -157,6 +157,11 @@
     display: flex;
 }
 
+#SelectedTopContactInfoButton {
+    display: flex;
+    cursor: pointer;
+}
+
 #SelectedContactIcon {
     justify-content: center;
     display: flex;
@@ -303,7 +308,7 @@
 #TopLeftSettingsContactSide {
     display: flex;
     border-radius: 35px;
-    margin: 20px;
+    margin-right: 20px;
     width: 50vw;
     background-color: #ffffff;
     padding-bottom: 20px;
@@ -346,4 +351,28 @@
 
 #MessageIcon {
     margin-right: 10px;
+}
+
+.SelectedContactSettingsInfo {
+    padding: 10px 0px 10px 50px;
+    text-align: left;
+    background-color: rgba(243,243,243,1);
+    width: 250px;
+    border-radius: 35px;
+    margin-bottom: 20px;
+}
+
+.SelectedContactSettingsInfo p {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+.SelectedContactSettingsInfoP {
+    color: black;
+    font-weight: 500;
+}
+
+#TopLeftSettingsContactSideWrapper {
+    display: flex;
+    padding: 20px;
 }

@@ -101,12 +101,14 @@ function App() {
                 ) : (
                     <div id = "Chat">
                         <div id = "RightTopSide">
-                            <div id = "SelectedContactIcon" style = {{backgroundColor: getColor(selectedContact.id)}}>
-                                <h2>{selectedContact.name[0]}</h2>
-                            </div>
-                            <div id = "SelectedTopContactInfo">
-                                <h2 id = "SelectedContactName">{selectedContact.name}</h2>
-                                <h2 id = "SelectedContactOnline">online</h2>
+                            <div id = "SelectedTopContactInfoButton" onClick={() => setIsSettingsOpen(true)}>
+                                <div id = "SelectedContactIcon" style = {{backgroundColor: getColor(selectedContact.id)}}>
+                                    <h2>{selectedContact.name[0]}</h2>
+                                </div>
+                                <div id = "SelectedTopContactInfo">
+                                    <h2 id = "SelectedContactName">{selectedContact.name}</h2>
+                                    <h2 id = "SelectedContactOnline">online</h2>
+                                </div>
                             </div>
                             <div id = "SelectedContactSettings">
                                 <button onClick={() => setIsSettingsOpen(!isSettingsOpen)}>
@@ -122,7 +124,7 @@ function App() {
                         {isSettingsOpen ? (
                             <div>
                                 <div>
-                                    <div>
+                                    <div id = "TopLeftSettingsContactSideWrapper">
                                         <div id = "TopLeftSettingsContactSide">
                                             <div id = "SelectedContactSettingsProfileIcon" style = {{backgroundColor: getColor(selectedContact.id)}}>
                                                 <h2>{selectedContact.name[0]}</h2>
@@ -138,13 +140,13 @@ function App() {
                                             </div>
                                         </div>
                                         <div>
-                                            <div>
+                                            <div className = "SelectedContactSettingsInfo">
                                                 <p>username</p>
-                                                <p>{selectedContact.username}</p>
+                                                <p className = "SelectedContactSettingsInfoP">{selectedContact.username}</p>
                                             </div>
-                                            <div>
+                                            <div className = "SelectedContactSettingsInfo">
                                                 <p>phone</p>
-                                                <p>{selectedContact.phone}</p>
+                                                <p className = "SelectedContactSettingsInfoP">{selectedContact.phone}</p>
                                             </div>
                                         </div>
                                     </div>
