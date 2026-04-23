@@ -1,0 +1,31 @@
+#BurgerButton {
+    background: transparent;
+    border: none;
+    color: grey;
+    margin: 5px;
+    font-size: 16px;
+}
+
+#BurgerIcon {
+    color: black;
+}
+
+#BurgerButton:hover #BurgerIcon{
+    color: grey;
+    cursor: pointer;
+}
+
+#DropDownMenu {
+    position: absolute;
+    border-Radius: 12px;
+    margin-Top: 10px;
+    width: 150px;
+    border: 1px solid #ccc;
+    background: white;
+    box-Shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.DropDownMenuOptions {
+    padding: 10px;
+    cursor: pointer;
+}

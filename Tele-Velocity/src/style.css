@@ -3,147 +3,9 @@
     height: 100vh;
 }
 
-#LeftSide {
-    padding: 10px;
-    width: 30vw;
-    background-color: rgba(243, 243, 243, 1);
-}
 
-#LeftTopSide {
-    display: flex;
-}
 
-#DropDown {
 
-}
-
-#BurgerButton {
-    background: transparent;
-    border: none;
-    color: grey;
-    margin: 5px;
-    font-size: 16px;
-}
-
-#BurgerIcon {
-    color: black;
-}
-
-#BurgerButton:hover #BurgerIcon{
-    color: grey;
-    cursor: pointer;
-}
-
-#DropDownMenu {
-    position: absolute;
-    border-Radius: 12px;
-    margin-Top: 10px;
-    width: 150px;
-    border: 1px solid #ccc;
-    background: white;
-    box-Shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.DropDownMenuOptions {
-    padding: 10px;
-    cursor: pointer;
-}
-
-#Search {
-    margin-bottom: 10px;
-}
-
-#SearchInput {
-    width: 20vw;
-    height: 15px;
-    padding: 8px;
-    border-Radius: 12px;
-    border: 1px solid #ccc;
-    background-color: #cccccc;
-    outline: none;
-}
-
-#LeftBottomSide {
-
-}
-
-.Contact {
-    display: flex;
-    padding: 10px;
-}
-
-.Contact:hover {
-    background-color: rgba(189, 222, 253, 1);
-    border-radius: 15px;
-    cursor: pointer;
-}
-
-.Contact.Selected {
-    background-color: rgba(189, 222, 253, 1);
-    border-radius: 15px;
-}
-
-.ContactIcon {
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    width: 45px;
-    height: 45px;
-    border-Radius: 50%;
-    margin-right: 10px;
-}
-
-.ContactIcon h2{
-    color: white;
-}
-
-.ContactIcon h2 {
-    margin: 0px;
-    font-size: 22px;
-}
-
-.ContactInfo {
-    padding-Left: 5px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: calc(100% - 60px);
-}
-
-.TopContactInfo {
-    display: flex;
-}
-
-.ContactName {
-    color: black;
-    margin: 0px;
-    text-Align: left;
-    font-Size: 16px;
-    margin-bottom: 3px;
-    flex: 5;
-}
-
-.ContactTime {
-    text-align: right;
-    color: #505050FF;
-    margin: 0px;
-    flex: 1;
-    font-Size: 14px;
-    margin-bottom: 3px;
-}
-
-.ContactDesc {
-    color: #505050FF;
-    margin: 0px;
-    text-Align: left;
-    font-Size: 14px;
-}
-
-#Resizer {
-    width: 5px;
-    cursor: col-resize;
-    background: rgba(243, 243, 243, 1);
-}
 
 #RightSide {
     flex: 1;
@@ -375,4 +237,8 @@
 #TopLeftSettingsContactSideWrapper {
     display: flex;
     padding: 20px;
+}
+
+.ContactIcon {
+
 }
