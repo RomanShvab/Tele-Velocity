@@ -1,0 +1,244 @@
+#MainPage {
+    display: flex;
+    height: 100vh;
+}
+
+
+
+
+
+#RightSide {
+    flex: 1;
+    width: 80vw;
+    background-color: rgba(249, 249, 249, 1);
+}
+
+#RightTopSide {
+    padding: 8px;
+    background-color: rgba(255,255,255, 1);
+    display: flex;
+}
+
+#SelectedTopContactInfoButton {
+    display: flex;
+    cursor: pointer;
+}
+
+#SelectedContactIcon {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-Radius: 50%;
+    margin-right: 10px;
+}
+
+#SelectedContactIcon h2{
+    color: white;
+}
+
+#SelectedContactIcon h2 {
+    font-size: 20px;
+    margin: 0px;
+}
+
+#SelectedTopContactInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+#SelectedContactName {
+    color: black;
+    text-Align: left;
+    font-Size: 18px;
+}
+
+#SelectedTopContactInfo h2 {
+    margin: 0px;
+}
+
+#SelectedContactOnline {
+    text-align: left;
+    color: #505050FF;
+    font-Size: 14px;
+}
+
+#SelectedContactSettings {
+    margin-left: auto;
+    justify-content: center;
+    display: flex;
+}
+
+#SelectedContactSettings:hover .SelectedContactSettingsIcon{
+    color: grey;
+    cursor: pointer;
+}
+
+#SelectedContactSettings button{
+    border: 0px;
+    background: none;
+}
+
+#SelectedContactSettingsIcon {
+    color: black;
+}
+
+#BackgroundChat {
+    background-color: rgba(249, 249, 249, 1);
+    padding-bottom: 20px;
+}
+
+#RightMidleSide {
+    height: calc(100vh - 56px - 90px);
+}
+
+#RightBottomSide {
+    height: 50px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    margin: 20px 20px 0px 20px;
+    display: flex;
+}
+
+#Attach {
+    background-color: rgba(0,0,0,0);
+    border: 0px;
+    /*border: solid 1px black;*/
+    border-radius: 30px;
+    height: 50px;
+    width: 50px;
+}
+
+#Clip {
+    color: black;
+}
+
+#Attach:hover #Clip {
+    color: grey;
+    cursor: pointer;
+}
+
+#MessageInput {
+    margin-left: 10px;
+    width: calc(100% - 100px);
+    background-color: white;
+    border: 0px;
+    color: black;
+    font-size: 16px;
+}
+
+#MessageInput:focus {
+    border: solid 0px;
+    outline: none;
+}
+
+#Send {
+    background-color: rgba(0,100,146,1);
+    border: 0px;
+    border-radius: 30px;
+    height: 50px;
+    width: 50px;
+    align-items: center;
+}
+
+#Send:hover {
+    background-color: rgb(0, 84, 122);
+    cursor: pointer;
+}
+
+#SendIcon {
+    color: white;
+}
+
+#SelectedContactSettingsProfileIcon {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 10vw;
+    height: 10vw;
+    border-Radius: 50%;
+    margin: 4vw;
+}
+
+#SelectedContactSettingsProfileIcon h2 {
+    color: white;
+    font-size: 4vw;
+    margin: 0px;
+}
+
+#TopLeftSettingsContactSide {
+    display: flex;
+    border-radius: 35px;
+    margin-right: 20px;
+    width: 50vw;
+    background-color: #ffffff;
+    padding-bottom: 20px;
+}
+
+#Description {
+    margin-top: 4vw;
+    width: 30vw;
+}
+
+#Description h2{
+    font-size: 4vw;
+    text-align: left;
+    margin: 0px;
+}
+
+#Description p {
+    margin-top: 6px;
+    text-align: left;
+    font-size: 16px;
+}
+
+#Description button {
+    margin-top: 20px;
+    padding-left: 25px;
+    display: flex;
+    align-items: center;
+    width: 220px;
+    height: 50px;
+    color: white;
+    background-color: rgba(2,104,157,1);
+    border: 0px;
+    border-radius: 50px;
+}
+
+#Description button:hover {
+    background-color: rgb(0, 84, 122);
+    cursor: pointer;
+}
+
+#MessageIcon {
+    margin-right: 10px;
+}
+
+.SelectedContactSettingsInfo {
+    padding: 10px 0px 10px 50px;
+    text-align: left;
+    background-color: rgba(243,243,243,1);
+    width: 250px;
+    border-radius: 35px;
+    margin-bottom: 20px;
+}
+
+.SelectedContactSettingsInfo p {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+.SelectedContactSettingsInfoP {
+    color: black;
+    font-weight: 500;
+}
+
+#TopLeftSettingsContactSideWrapper {
+    display: flex;
+    padding: 20px;
+}
+
+.ContactIcon {
+
+}
