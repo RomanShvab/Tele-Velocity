@@ -1,9 +1,11 @@
 import {useState} from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
-import {FiPaperclip, FiSend, FiMenu, FiMoreVertical, FiX} from "react-icons/fi"
+import {FiPaperclip, FiSend, FiMoreVertical, FiX} from "react-icons/fi"
 import { BsChatFill } from "react-icons/bs";
-import {contacts} from "./contacts.ts";
-import ContactList from "./components/ContactList/ContactList.tsx";
+import {contacts} from "../../contacts.ts";
+import ContactList from "../../components/ContactList/ContactList.tsx";
 
 
 function getColor(id: number) {
@@ -11,7 +13,16 @@ function getColor(id: number) {
     return `hsl(${hue}, 60%, 60%)`;
 }
 
-function App() {
+function Chat() {
+    const navigate = useNavigate();
+
+useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        navigate("/");
+    }
+    }, []);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
     const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -104,4 +115,4 @@ function App() {
     );
    }
 
-export default App;
+export default Chat;
