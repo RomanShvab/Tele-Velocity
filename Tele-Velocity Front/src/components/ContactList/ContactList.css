@@ -1,7 +1,7 @@
 #LeftSide {
     padding: 10px;
     width: 30vw;
-    background-color: rgba(243, 243, 243, 1);
+    background-color: var(--bg-support);
 }
 
 #LeftTopSide {
@@ -11,7 +11,7 @@
 #Resizer {
     width: 5px;
     cursor: col-resize;
-    background: rgba(243, 243, 243, 1);
+    background: var(--bg-support);
 }
 
 #ContactSearch {

@@ -4,18 +4,18 @@
 }
 
 .ContactItem:hover {
-    background-color: rgba(189, 222, 253, 1);
+    background-color: var(--primary-light);
     border-radius: 15px;
     cursor: pointer;
 }
 
 .ContactItem.Selected {
-    background-color: rgba(189, 222, 253, 1);
+    background-color: var(--primary-light);
     border-radius: 15px;
 }
 
 .ContactItemInfo {
-    padding-Left: 5px;
+    padding-left: 5px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -27,26 +27,26 @@
 }
 
 .ContactItemName {
-    color: black;
+    color: var(--text-main);
     margin: 0px;
-    text-Align: left;
-    font-Size: 16px;
+    text-align: left;
+    font-size: 16px;
     margin-bottom: 3px;
     flex: 5;
 }
 
 .ContactItemTime {
     text-align: right;
-    color: #505050FF;
+    color: var(--text-secondary);
     margin: 0px;
     flex: 1;
-    font-Size: 14px;
+    font-size: 14px;
     margin-bottom: 3px;
 }
 
 .ContactItemDesc {
-    color: #505050FF;
+    color: var(--text-secondary);
     margin: 0px;
-    text-Align: left;
-    font-Size: 14px;
+    text-align: left;
+    font-size: 14px;
 }

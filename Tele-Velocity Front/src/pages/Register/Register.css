@@ -54,7 +54,6 @@
 
     transition: all 0.2s ease;
 }
-
 #LoginForm input::placeholder {
     color: var(--input-placeholder);
 }

@@ -3,19 +3,15 @@
     height: 100vh;
 }
 
-
-
-
-
 #RightSide {
     flex: 1;
     width: 80vw;
-    background-color: rgba(249, 249, 249, 1);
+    background-color: var(--bg-main);
 }
 
 #RightTopSide {
     padding: 8px;
-    background-color: rgba(255,255,255, 1);
+    background-color: var(--bg-secondary);
     display: flex;
 }
 
@@ -30,15 +26,12 @@
     align-items: center;
     width: 40px;
     height: 40px;
-    border-Radius: 50%;
+    border-radius: 50%;
     margin-right: 10px;
 }
 
-#SelectedContactIcon h2{
-    color: white;
-}
-
 #SelectedContactIcon h2 {
+    color: white;
     font-size: 20px;
     margin: 0px;
 }
@@ -49,9 +42,9 @@
 }
 
 #SelectedContactName {
-    color: black;
-    text-Align: left;
-    font-Size: 18px;
+    color: var(--text-main);
+    text-align: left;
+    font-size: 18px;
 }
 
 #SelectedTopContactInfo h2 {
@@ -60,8 +53,8 @@
 
 #SelectedContactOnline {
     text-align: left;
-    color: #505050FF;
-    font-Size: 14px;
+    color: var(--text-secondary);
+    font-size: 14px;
 }
 
 #SelectedContactSettings {
@@ -70,22 +63,22 @@
     display: flex;
 }
 
-#SelectedContactSettings:hover .SelectedContactSettingsIcon{
-    color: grey;
+#SelectedContactSettings:hover .SelectedContactSettingsIcon {
+    color: var(--text-secondary);
     cursor: pointer;
 }
 
-#SelectedContactSettings button{
+#SelectedContactSettings button {
     border: 0px;
     background: none;
 }
 
 #SelectedContactSettingsIcon {
-    color: black;
+    color: var(--text-main);
 }
 
 #BackgroundChat {
-    background-color: rgba(249, 249, 249, 1);
+    background-color: var(--bg-main);
     padding-bottom: 20px;
 }
 
@@ -95,46 +88,44 @@
 
 #RightBottomSide {
     height: 50px;
-    background-color: rgba(255, 255, 255, 1);
+    background-color: var(--bg-secondary);
     border-radius: 20px;
     margin: 20px 20px 0px 20px;
     display: flex;
 }
 
 #Attach {
-    background-color: rgba(0,0,0,0);
+    background-color: transparent;
     border: 0px;
-    /*border: solid 1px black;*/
     border-radius: 30px;
     height: 50px;
     width: 50px;
 }
 
 #Clip {
-    color: black;
+    color: var(--text-main);
 }
 
 #Attach:hover #Clip {
-    color: grey;
+    color: var(--text-secondary);
     cursor: pointer;
 }
 
 #MessageInput {
     margin-left: 10px;
     width: calc(100% - 100px);
-    background-color: white;
+    background-color: var(--bg-secondary);
     border: 0px;
-    color: black;
+    color: var(--text-main);
     font-size: 16px;
 }
 
 #MessageInput:focus {
-    border: solid 0px;
     outline: none;
 }
 
 #Send {
-    background-color: rgba(0,100,146,1);
+    background-color: var(--primary);
     border: 0px;
     border-radius: 30px;
     height: 50px;
@@ -143,7 +134,7 @@
 }
 
 #Send:hover {
-    background-color: rgb(0, 84, 122);
+    background-color: var(--primary-hover);
     cursor: pointer;
 }
 
@@ -155,15 +146,17 @@
     justify-content: center;
     display: flex;
     align-items: center;
-    width: 10vw;
-    height: 10vw;
-    border-Radius: 50%;
-    margin: 4vw;
+    width: clamp(50px, 12vw, 230px);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    margin: 5%;
+    flex-shrink: 0;
+    align-self: center;
 }
 
 #SelectedContactSettingsProfileIcon h2 {
     color: white;
-    font-size: 4vw;
+    font-size: clamp(20px, 7vw, 100px);
     margin: 0px;
 }
 
@@ -171,43 +164,52 @@
     display: flex;
     border-radius: 35px;
     margin-right: 20px;
-    width: 50vw;
-    background-color: #ffffff;
+    width: 60%;
+    background-color: var(--bg-secondary);
     padding-bottom: 20px;
 }
 
-#Description {
-    margin-top: 4vw;
-    width: 30vw;
+@media (max-width: 1000px) {
+    #TopLeftSettingsContactSide {
+        width: 100%;
+    }
 }
 
-#Description h2{
-    font-size: 4vw;
+#Description {
+    margin-top: 4%;
+    width: 30vw;
+    min-width: 0;
+}
+
+#Description h2 {
+    font-size: clamp(24px, 5vw, 48px);
     text-align: left;
     margin: 0px;
+    color: var(--text-main);
 }
 
 #Description p {
     margin-top: 6px;
     text-align: left;
     font-size: 16px;
+    color: var(--text-secondary);
 }
 
 #Description button {
     margin-top: 20px;
-    padding-left: 25px;
     display: flex;
     align-items: center;
-    width: 220px;
     height: 50px;
     color: white;
-    background-color: rgba(2,104,157,1);
+    background-color: var(--primary);
     border: 0px;
-    border-radius: 50px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    width: fit-content;
 }
 
 #Description button:hover {
-    background-color: rgb(0, 84, 122);
+    background-color: var(--primary-hover);
     cursor: pointer;
 }
 
@@ -218,8 +220,8 @@
 .SelectedContactSettingsInfo {
     padding: 10px 0px 10px 50px;
     text-align: left;
-    background-color: rgba(243,243,243,1);
-    width: 250px;
+    background-color: var(--bg-support);
+    width: 180px;
     border-radius: 35px;
     margin-bottom: 20px;
 }
@@ -229,14 +231,22 @@
     text-transform: uppercase;
     font-size: 14px;
 }
+
 .SelectedContactSettingsInfoP {
-    color: black;
+    color: var(--text-main);
     font-weight: 500;
 }
 
 #TopLeftSettingsContactSideWrapper {
     display: flex;
     padding: 20px;
+}
+
+@media (max-width: 1000px) {
+    #TopLeftSettingsContactSideWrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
 }
 
 .ContactIcon {

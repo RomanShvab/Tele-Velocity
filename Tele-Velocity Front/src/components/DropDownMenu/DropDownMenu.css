@@ -1,31 +1,36 @@
 #BurgerButton {
     background: transparent;
     border: none;
-    color: grey;
+    color: var(--icon-muted);
     margin: 5px;
     font-size: 16px;
 }
 
 #BurgerIcon {
-    color: black;
+    color: var(--text-main);
 }
 
-#BurgerButton:hover #BurgerIcon{
-    color: grey;
+#BurgerButton:hover #BurgerIcon {
+    color: var(--text-secondary);
     cursor: pointer;
 }
 
 #DropDownMenu {
     position: absolute;
-    border-Radius: 12px;
-    margin-Top: 10px;
+    border-radius: 12px;
+    margin-top: 10px;
     width: 150px;
-    border: 1px solid #ccc;
-    background: white;
-    box-Shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    box-shadow: 0 2px 5px var(--shadow);
 }
 
 .DropDownMenuOptions {
     padding: 10px;
     cursor: pointer;
+    color: var(--text-main);
+}
+
+.DropDownMenuOptions:hover {
+    background-color: var(--bg-support);
 }

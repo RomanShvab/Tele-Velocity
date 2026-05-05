@@ -1,7 +1,7 @@
 import "./Login.css"
 import { IoSend } from "react-icons/io5";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
@@ -64,6 +64,9 @@ function Login() {
         <button id="LoginButton" onClick={handleLogin}>
           Log In
         </button>
+        <Link id="RegisterLink" to="/register">
+          Register
+        </Link>
       </div>
     </div>
   );

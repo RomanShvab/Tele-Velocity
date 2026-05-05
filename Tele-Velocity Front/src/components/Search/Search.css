@@ -2,8 +2,17 @@
     width: 20vw;
     height: 15px;
     padding: 10px;
-    border-Radius: 20px;
-    border: 1px solid #dbdbdb;
-    background-color: #dbdbdb;
+    border-radius: 20px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-text);
     outline: none;
+}
+
+.Search::placeholder {
+    color: var(--input-placeholder);
+}
+
+.Search:focus {
+    border: 1px solid var(--input-focus);
 }
