@@ -1,12 +1,15 @@
 import {useState} from "react";
+import { useRef } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 import {FiPaperclip, FiSend, FiMoreVertical, FiX} from "react-icons/fi"
 import { BsChatFill } from "react-icons/bs";
+import { chats } from "../../chats";
 import {contacts} from "../../contacts.ts";
 import ContactList from "../../components/ContactList/ContactList.tsx";
 
+const CurrentUserId = 0;
 
 function getColor(id: number) {
     const hue = (id * 137) % 360;
@@ -14,14 +17,42 @@ function getColor(id: number) {
 }
 
 function Chat() {
+    
+    const messagesEndRef = useRef<HTMLDivElement | null>(null);
+    const [chatList, setChatList] = useState(chats);
+
+    function sendMessage(id: string, text: string) {
+        setChatList(prev =>
+            prev.map(chat => {
+                if (chat.id !== id) return chat;
+
+                return {
+                    ...chat,
+                    messages: [
+                        ...chat.messages,
+                        {
+                            id: chat.messages.length + 1,
+                            senderId: CurrentUserId,
+                            text: text,
+                            time: new Date().toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit"
+                            })
+                        }
+                    ]
+                };
+            })
+        );
+
+    }
     const navigate = useNavigate();
 
-useEffect(() => {
-    const token = localStorage.getItem("token");
+    useEffect(() => {
+        const token = localStorage.getItem("token");
 
-    if (!token) {
-        navigate("/");
-    }
+        if (!token) {
+            navigate("/");
+        }
     }, []);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
@@ -95,14 +126,25 @@ useEffect(() => {
                         ) : (
                             <div id = "BackgroundChat">
                                 <div id = "RightMidleSide">
-
+                                    {chatList.find(c => c.users.includes(selectedContact.id) && c.users.includes(CurrentUserId))?.messages.map(m => (
+                                        <div key={m.id} className={`Message ${m.senderId === CurrentUserId ? "SentMessage" : "ReceivedMessage"}`}>
+                                            <p>{m.text}</p>
+                                        </div>
+                                    ))}
+                                    <div ref={messagesEndRef} />
                                 </div>
                                 <div id = "RightBottomSide">
                                     <button id = "Attach">
                                         <FiPaperclip id = "Clip" size={20}/>
                                     </button>
                                     <input id = "MessageInput" placeholder={"Write a message..."}/>
-                                    <button id = "Send">
+                                    <button id = "Send" onClick={() => {
+                                        const messageInput = document.getElementById("MessageInput") as HTMLInputElement;
+                                        if (messageInput.value.trim() !== "") {
+                                            sendMessage(chatList.find(c => c.users.includes(selectedContact.id) && c.users.includes(CurrentUserId))?.id || "", messageInput.value);
+                                             messageInput.value = "";
+                                        }
+                                    }}>
                                         <FiSend id = "SendIcon" size={20}/>
                                     </button>
                                 </div>
