@@ -21,6 +21,7 @@ function Chat() {
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
     const [chatList, setChatList] = useState(chats);
 
+
     function sendMessage(id: string, text: string) {
         setChatList(prev =>
             prev.map(chat => {
@@ -58,6 +59,13 @@ function Chat() {
 
     const [selectedId, setSelectedId] = useState<number | null>(null);
     const selectedContact = contacts.find(c => c.id === selectedId);
+    
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({
+            behavior: "auto"
+        });
+    }, [selectedId, chatList]);
+
     return (
         <div id = "MainPage">
             <ContactList contacts={contacts} selectedId={selectedId} onSelect={setSelectedId} />

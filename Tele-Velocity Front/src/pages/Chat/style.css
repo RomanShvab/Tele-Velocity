@@ -5,7 +5,7 @@
 
 #RightSide {
     flex: 1;
-    width: 80vw;
+    width: auto;
     background-color: var(--bg-main);
 }
 
@@ -71,6 +71,7 @@
 #SelectedContactSettings button {
     border: 0px;
     background: none;
+    color: var(--text-main);
 }
 
 #SelectedContactSettingsIcon {

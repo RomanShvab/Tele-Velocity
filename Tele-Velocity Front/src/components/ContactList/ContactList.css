@@ -1,7 +1,10 @@
 #LeftSide {
     padding: 10px;
+    padding-right: 0px;
     width: 30vw;
     background-color: var(--bg-support);
+    flex: 1;
+    position: relative;
 }
 
 #LeftTopSide {
@@ -16,5 +19,81 @@
 
 #ContactSearch {
     width: 100%;
+}
+
+#LeftBottomSide {
+    display: flex;
+    flex-direction: column;
+    height: 94%;
+    overflow-y: auto;
+}
+
+#ThemeToggle {
+    padding: 8px 8px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+    height: 36px;
+    aspect-ratio: 1/1;
+    font-size: 15px;
+    background-color: var(--primary);
+    color: white;
+
+    transition: 0.2s;
+}
+
+#ThemeToggle:hover {
+    background-color: var(--primary-hover);
+}
+
+#AddContactButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+
+    width: 50px;
+    aspect-ratio: 1/1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    line-height: 1;
+
+
+
+    background-color: var(--primary);
+    color: white;
+    text-decoration: none; /* 🔥 usuwa podkreślenie */
+
+    border-radius: 50%;
+    font-size: 26px;
+
+    box-shadow: 0 4px 10px var(--shadow);
+}
+
+#AddContactButton:hover {
+    background-color: var(--primary-hover);
+}
+
+#SettingsButton {
+    padding: 8px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    height: 20px;
+    aspect-ratio: 1/1;
+    font-size: 8px;
+    background-color: var(--primary);
+    color: white;
+
+    display: flex;              
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none; 
+
 }
 
