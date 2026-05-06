@@ -1,5 +1,6 @@
 import "./Settings.css";
 import { useState } from "react";
+import ContactIcon from "../../components/ContactIcon/ContactIcon";
 
 function Settings() {
   const [activeTab, setActiveTab] = useState("account");
@@ -7,11 +8,10 @@ function Settings() {
   return (
     <div id="SettingsPage">
       
-      {/* 🔹 LEWA STRONA */}
       <div id="SettingsSidebar">
         <div id="UserPreview">
-          <div className="Avatar">A</div>
-          <div>
+          <ContactIcon contact = {{id: 0, name: "Alex Rivera" }} size = {60} />
+          <div className="UserInfo">
             <h3>Alex Rivera</h3>
             <p>+1 234 567 890</p>
           </div>
@@ -30,7 +30,6 @@ function Settings() {
         </div>
       </div>
 
-      {/* 🔹 PRAWA STRONA */}
       <div id="SettingsContent">
 
         {activeTab === "account" && (
@@ -42,8 +41,7 @@ function Settings() {
 
             <div className="Cards">
 
-              {/* PROFIL */}
-              <div className="Card Center">
+              <div className="Card">
                 <div className="BigAvatar">A</div>
                 <h2>Alex Rivera</h2>
                 <p className="Status">Active now</p>
