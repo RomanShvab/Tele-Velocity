@@ -3,6 +3,9 @@ import { IoSend } from "react-icons/io5";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
+import TextButton from "../../components/TextButton/TextButton";
+import TextInput from "../../components/TextInput/TextInput";
+
 function Register() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -28,7 +31,7 @@ function Register() {
 
       alert("Konto utworzone");
 
-      // po rejestracji wracasz do loginu
+      // po rejestracji wracasz do Registeru
       navigate("/");
 
     } catch (err) {
@@ -38,35 +41,34 @@ function Register() {
   };
 
   return (
-    <div id="LoginPage">
+    <div id="RegisterPage">
       <div>
-        <IoSend id="LoginIcon" />
+        <div id="RegisterIcon">          
+          <IoSend/>
+        </div>
         <h1>Register to Tele-Velocity</h1>
         <p>Create your account</p>
       </div>
 
-      <div id="LoginForm">
+      <div id="RegisterForm">
         <p>Email</p>
-        <input
-          type="text"
+        <TextInput
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <p>Password</p>
-        <input
+        <TextInput
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button id="LoginButton" onClick={handleRegister}>
-          Register
-        </button>
+        <TextButton text = "Register" onClick={handleRegister}/>
 
-        <Link id="RegisterLink" to="/">
+        <Link id="Link" to="/">
           Log In
         </Link>
       </div>

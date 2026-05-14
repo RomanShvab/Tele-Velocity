@@ -10,7 +10,7 @@ function Settings() {
       
       <div id="SettingsSidebar">
         <div id="UserPreview">
-          <ContactIcon contact = {{id: 0, name: "Alex Rivera" }} size = {60} />
+          <ContactIcon name = "Alex Rivera" size = {60} />
           <div className="UserInfo">
             <h3>Alex Rivera</h3>
             <p>+1 234 567 890</p>

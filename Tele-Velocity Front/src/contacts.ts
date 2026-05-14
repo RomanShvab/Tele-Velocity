@@ -6,7 +6,9 @@ export const contacts = [
         time: "10:42",
         description: "Software developer focused on clean code and scalable systems. Enjoys solving complex problems and building useful tools.",
         username: "jan_dev",
-        phone: "+48 512 345 678"
+        phone: "+48 512 345 678",
+        avatar: null,
+        isOnline: true,
     },
     {
         id: 2,
@@ -15,7 +17,9 @@ export const contacts = [
         time: "12:31",
         description: "Graphic designer passionate about minimalism and modern aesthetics. Loves creating simple and beautiful interfaces.",
         username: "anna_design",
-        phone: "+48 534 987 123"
+        phone: "+48 534 987 123",
+        avatar: null,
+        isOnline: false,
     },
     {
         id: 3,
@@ -24,7 +28,9 @@ export const contacts = [
         time: "9:22",
         description: "Backend engineer working with distributed systems. Interested in performance and reliability.",
         username: "piotr_backend",
-        phone: "+48 601 234 567"
+        phone: "+48 601 234 567",
+        avatar: null,
+        isOnline: true,
     },
     {
         id: 4,
@@ -33,7 +39,9 @@ export const contacts = [
         time: "yesterday",
         description: "Student and tech enthusiast exploring new technologies and ideas. Always learning something new.",
         username: "karol_tech",
-        phone: "+48 725 456 890"
+        phone: "+48 725 456 890",
+        avatar: null,
+        isOnline: false,
     },
     {
         id: 5,
@@ -42,7 +50,9 @@ export const contacts = [
         time: "10.04.2026",
         description: "Fullstack developer who enjoys building practical applications. Coffee-driven and detail-oriented.",
         username: "kuba_codes",
-        phone: "+48 888 123 456"
+        phone: "+48 888 123 456",
+        avatar: null,
+        isOnline: true,
     },
     {
         id: 6,
@@ -51,7 +61,9 @@ export const contacts = [
         time: "09.04.2026",
         description: "Focused on simplicity and efficiency. Believes good design should be invisible.",
         username: "filip_simple",
-        phone: "+48 669 777 222"
+        phone: "+48 669 777 222",
+        avatar: null,
+        isOnline: false,
     },
     {
         id: 7,
@@ -60,7 +72,9 @@ export const contacts = [
         time: "10:42",
         description: "Software developer focused on clean code and scalable systems. Enjoys solving complex problems and building useful tools.",
         username: "jan_dev",
-        phone: "+48 512 345 678"
+        phone: "+48 512 345 678",
+        avatar: null,
+        isOnline: true,
     },
     {
         id: 8,
@@ -69,7 +83,9 @@ export const contacts = [
         time: "12:31",
         description: "Graphic designer passionate about minimalism and modern aesthetics. Loves creating simple and beautiful interfaces.",
         username: "anna_design",
-        phone: "+48 534 987 123"
+        phone: "+48 534 987 123",
+        avatar: null,
+        isOnline: true,
     },
     {
         id: 9,
@@ -78,7 +94,9 @@ export const contacts = [
         time: "9:22",
         description: "Backend engineer working with distributed systems. Interested in performance and reliability.",
         username: "piotr_backend",
-        phone: "+48 601 234 567"
+        phone: "+48 601 234 567",
+        avatar: null,
+        isOnline: true,
     },
     {
         id: 10,
@@ -87,7 +105,9 @@ export const contacts = [
         time: "yesterday",
         description: "Student and tech enthusiast exploring new technologies and ideas. Always learning something new.",
         username: "karol_tech",
-        phone: "+48 725 456 890"
+        phone: "+48 725 456 890",
+        avatar: null,
+        isOnline: true,
     },
     {
         id: 11,
@@ -96,7 +116,9 @@ export const contacts = [
         time: "10.04.2026",
         description: "Fullstack developer who enjoys building practical applications. Coffee-driven and detail-oriented.",
         username: "kuba_codes",
-        phone: "+48 888 123 456"
+        phone: "+48 888 123 456",
+        avatar: null,
+        isOnline: true,
     },
     {
         id: 12,
@@ -105,6 +127,8 @@ export const contacts = [
         time: "09.04.2026",
         description: "Focused on simplicity and efficiency. Believes good design should be invisible.",
         username: "filip_simple",
-        phone: "+48 669 777 222"
+        phone: "+48 669 777 222",
+        avatar: null,
+        isOnline: true,
     },
 ];

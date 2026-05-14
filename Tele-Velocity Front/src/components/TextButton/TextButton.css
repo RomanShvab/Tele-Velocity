@@ -1,0 +1,27 @@
+.TextButton {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+
+    background-color: #2d7ff9;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.TextButton:hover {
+    background-color: #1f6ae0;
+}
+
+.TextButton:active {
+    transform: scale(0.98);
+}
+
+.TextButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

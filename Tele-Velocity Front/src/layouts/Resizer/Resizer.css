@@ -1,0 +1,12 @@
+.Resizer {
+    width: 4px;
+
+    cursor: col-resize;
+
+    background-color: var(--bg-secondary);
+}
+
+.Resizer:hover {
+    background-color: var(--bg-support);
+    transition: background-color 0.2s ease;
+}

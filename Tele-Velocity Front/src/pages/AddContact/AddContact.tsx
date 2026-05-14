@@ -3,6 +3,9 @@ import { IoPersonAdd } from "react-icons/io5";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import TextInput from "../../components/TextInput/TextInput";
+import TextButton from "../../components/TextButton/TextButton";
+
 function AddContact() {
   const navigate = useNavigate();
 
@@ -24,35 +27,33 @@ function AddContact() {
   };
 
   return (
-    <div id="LoginPage">
+    <div id="AddPage">
       <div>
-        <IoPersonAdd id="LoginIcon" />
+        <div id="AddIcon">
+          <IoPersonAdd/>
+        </div>
         <h1>Add new contact</h1>
         <p>Enter contact details to add a new person.</p>
       </div>
 
-      <div id="LoginForm">
+      <div id="AddForm">
         <p>Username</p>
-        <input
-          type="text"
+        <TextInput
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
 
         <p>Email</p>
-        <input
-          type="text"
+        <TextInput
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <button id="LoginButton" onClick={handleAddContact}>
-          Add Contact
-        </button>
+        <TextButton text = "Add Contact" onClick={handleAddContact}/>
 
-        <Link id="RegisterLink" to="/chat">
+        <Link id="Link" to="/chat">
           Cancel
         </Link>
       </div>

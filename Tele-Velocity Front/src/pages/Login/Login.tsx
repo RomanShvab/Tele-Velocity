@@ -3,6 +3,9 @@ import { IoSend } from "react-icons/io5";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import TextInput from "../../components/TextInput/TextInput";
+import TextButton from "../../components/TextButton/TextButton";
+
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -42,29 +45,27 @@ function Login() {
   return (
     <div id="LoginPage">
       <div>
-        <IoSend id = "LoginIcon"/>
+        <div id = "LoginIcon">
+          <IoSend/>
+        </div>
         <h1>Log in to Tele-Velocity</h1>
         <p>Please enter your username and password to log in.</p>
       </div>
       <div id="LoginForm">
         <p>Username</p>
-        <input 
-          type="text" 
+        <TextInput 
           placeholder="Username" 
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)}/>
         <p>Password</p>
-        <input 
+        <TextInput 
           type="password" 
           placeholder="Password" 
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button id="LoginButton" onClick={handleLogin}>
-          Log In
-        </button>
-        <Link id="RegisterLink" to="/register">
+        <TextButton text = "Log In" onClick={handleLogin}/>
+        <Link id="Link" to="/register">
           Register
         </Link>
       </div>

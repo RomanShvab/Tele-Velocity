@@ -1,6 +1,7 @@
 .ContactItem {
     display: flex;
     padding: 10px;
+    border-radius: 15px;
 }
 
 .ContactItem:hover {
@@ -15,15 +16,55 @@
 }
 
 .ContactItemInfo {
-    padding-left: 5px;
+    padding-left: 10px;
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    width: calc(100% - 60px);
+    width: calc(100% - 50px);
 }
 
-.TopContactItemInfo {
+.LeftContactItemInfo {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+.RightContactItemInfo {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+
+    background-color: var(--background);
+}
+
+.RightContactItemInfo::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -20px;
+
+    width: 20px;
+    height: 100%;
+
+    pointer-events: none;
+
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--background)
+    );
 }
 
 .ContactItemName {
@@ -44,7 +85,14 @@
     margin-bottom: 3px;
 }
 
-.ContactItemDesc {
+.ContactItemName,
+.ContactItemLastMessage {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ContactItemLastMessage {
     color: var(--text-secondary);
     margin: 0px;
     text-align: left;

@@ -1,0 +1,34 @@
+.TextInput {
+    width: 100%;
+
+    padding: 10px 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 999px;
+
+    background-color: var(--bg-support);
+
+    color: var(--text-main);
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+.TextInput::placeholder {
+    color: var(--text-secondary);
+}
+
+.TextInput:focus {
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px var(--primary-light);
+}
+
+.TextInput:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+}
