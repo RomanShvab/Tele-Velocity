@@ -11,34 +11,34 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegister = async () => {
+  async function register() {
     try {
-      const res = await fetch("http://localhost:8080/auth/register", {
+
+      const response = await fetch("http://localhost:8080/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
-          password,
+          email: email,
+          password: password,
+          name: name,
         }),
       });
 
-      if (!res.ok) {
-        alert("Błąd rejestracji");
-        return;
+      const data = await response.text();
+
+      if (data === "User created") {
+        navigate("/")
+      } else {
+        console.log(data);
       }
 
-      alert("Konto utworzone");
 
-      // po rejestracji wracasz do Registeru
-      navigate("/");
-
-    } catch (err) {
-      console.error(err);
-      alert("Błąd połączenia z backendem");
+    } catch (error) {
+      console.error(error);
     }
-  };
+  }
 
   return (
     <div id="RegisterPage">
@@ -53,6 +53,7 @@ function Register() {
       <div id="RegisterForm">
         <p>Email</p>
         <TextInput
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -66,7 +67,7 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <TextButton text = "Register" onClick={handleRegister}/>
+        <TextButton text = "Register" onClick={register}/>
 
         <Link id="Link" to="/">
           Log In

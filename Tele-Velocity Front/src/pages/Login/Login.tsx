@@ -10,38 +10,29 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleLogin = async () => {
-    try {
-      const res = await fetch("http://localhost:8080/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+  async function login() {
+  try {
 
-      if (!res.ok) {
-        alert("Błąd logowania");
-        return;
-      }
+    const response = await fetch("http://localhost:8080/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        name: name,
+      }),
+    });
 
-      const token = await res.text();
+    const data = await response.text();
 
-      localStorage.setItem("token", token);
+    console.log(data);
 
-      console.log("Zalogowano, token:", token);
-
-      navigate("/chat");
-
-      // tu później routing
-    } catch (err) {
-      console.error(err);
-      alert("Błąd połączenia z backendem");
-    }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+}
   return (
     <div id="LoginPage">
       <div>
@@ -54,6 +45,7 @@ function Login() {
       <div id="LoginForm">
         <p>Username</p>
         <TextInput 
+          type="email"
           placeholder="Username" 
           value={email} 
           onChange={(e) => setEmail(e.target.value)}/>
@@ -64,7 +56,7 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <TextButton text = "Log In" onClick={handleLogin}/>
+        <TextButton text = "Log In" onClick={login}/>
         <Link id="Link" to="/register">
           Register
         </Link>
