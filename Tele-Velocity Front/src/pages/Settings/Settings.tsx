@@ -11,6 +11,59 @@ function Settings() {
   const navigate = useNavigate();
 
   console.log(currentUser);
+
+  async function changeUserData(field: string) {
+
+    let promptText = "";
+
+    switch (field) {
+      case "phone":
+        promptText = "Enter new phone number";
+        break;
+
+      case "bio":
+        promptText = "Enter new bio";
+        break;
+
+      case "name":
+        promptText = "Enter new name";
+        break;
+
+      default:
+        return;
+    }
+
+    const newValue = prompt(promptText);
+
+    if (!newValue || !currentUser)
+      return;
+
+    const updatedUser = {
+      name: currentUser.name,
+      bio: currentUser.bio,
+      phone: currentUser.phone,
+      avatarUrl: currentUser.avatarUrl,
+    };
+
+    updatedUser[field as keyof typeof updatedUser] = newValue;
+
+    const response = await fetch(
+      `http://localhost:8080/auth/user/${currentUser.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedUser),
+      }
+    );
+
+    const data = await response.json();
+
+    setCurrentUser(data);
+
+    localStorage.setItem("currentUser", JSON.stringify(data));
+  }
   return (
     <div id="SettingsPage">      
       <div id="SettingsSidebar">
@@ -59,21 +112,20 @@ function Settings() {
 
               <div className="CardCenter">
                 <ContactIcon style = {{marginBottom: 10}} name = {currentUser?.name} size = {120}></ContactIcon>
-                <p className="Name">Alex Rivera</p>
+                <p className="Name">{currentUser?.name}</p>
                 <p className="Status">Active now</p>
               </div>
 
-              {/* INFO */}
               <div className="CardLeft" style={{alignItems: "left", textAlign: "left"}}>
-                <p className="Label">Username</p>
-                <h3>@alex_dev</h3>
+                <p className="Label">email</p>
+                <h3>{currentUser?.email}</h3>
 
                 <p className="Label">Phone</p>
-                <h3>+48 123 456 789</h3>
+                <h3>{currentUser?.phone ? currentUser?.phone : "Set Phone number"}</h3>
 
                 <p className="Label">Bio</p>
                 <p>
-                  Frontend developer. Likes clean UI and simple solutions.
+                  {currentUser?.bio ? currentUser?.bio : "Set profile bio"}
                 </p>
               </div>
 
@@ -83,14 +135,14 @@ function Settings() {
 
             <div className="Cards">
 
-              <div className="CardLeft Small">
+              <div className="CardLeft Small" onClick={() => changeUserData("phone")}>
                 <h3>Change Phone Number</h3>
                 <p>Update your phone number</p>
               </div>
 
-              <div className="CardLeft Small">
-                <h3>Security Check</h3>
-                <p>Review login activity</p>
+              <div className="CardLeft Small" onClick={() => changeUserData("bio")}>
+                <h3>Change Bio</h3>
+                <p>Update your bio</p>
               </div>
 
             </div>

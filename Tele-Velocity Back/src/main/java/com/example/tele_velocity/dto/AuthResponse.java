@@ -2,9 +2,6 @@ package com.example.tele_velocity.dto;
 
 import com.example.tele_velocity.model.User;
 
-import lombok.Getter;
-
-@Getter
 public class AuthResponse {
 
     private Long id;
@@ -21,5 +18,29 @@ public class AuthResponse {
         this.email = user.getEmail();
         this.name = user.getName();
         this.phone = user.getPhone();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 }
