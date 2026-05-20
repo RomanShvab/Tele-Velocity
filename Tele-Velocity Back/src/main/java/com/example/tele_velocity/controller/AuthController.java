@@ -1,12 +1,13 @@
 package com.example.tele_velocity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.example.tele_velocity.dto.AuthResponse;
 import com.example.tele_velocity.dto.LoginRequest;
 import com.example.tele_velocity.dto.RegisterRequest;
 import com.example.tele_velocity.model.User;
@@ -25,6 +26,7 @@ public class AuthController {
 
         User user = new User();
 
+        user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
 
@@ -34,16 +36,16 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
+    public AuthResponse login(@RequestBody LoginRequest request) {
 
         User user = userRepository.findByEmail(request.getEmail());
 
         if (user == null)
-            return "User not found";
+            return null;
 
-        if(!user.getPassword().equals(request.getPassword()))
-            return "Wrong password";
+        if (!user.getPassword().equals(request.getPassword()))
+            return null;
 
-        return "Login succes";
+        return new AuthResponse(user);
     }
 }

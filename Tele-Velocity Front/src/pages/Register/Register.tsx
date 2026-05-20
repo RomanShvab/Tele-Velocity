@@ -8,11 +8,34 @@ import TextInput from "../../components/TextInput/TextInput";
 
 function Register() {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [inputNameError, setInputNameError] = useState(false);
+  const [inputEmailError, setInputEmailError] = useState(false);
+  const [inputPasswordError, setInputPasswordError] = useState(false);
+
   async function register() {
     try {
+
+      if(name == "")
+      {
+        setInputNameError(true);
+      }
+      
+      if(email == "")
+      {
+        setInputEmailError(true);
+      }
+      
+      if(password == "")
+      {
+        setInputPasswordError(true);
+      }
+
+      if(inputNameError || inputEmailError || inputPasswordError)
+        return;
 
       const response = await fetch("http://localhost:8080/auth/register", {
         method: "POST",
@@ -30,6 +53,7 @@ function Register() {
 
       if (data === "User created") {
         navigate("/")
+        alert(data)
       } else {
         console.log(data);
       }
@@ -51,20 +75,47 @@ function Register() {
       </div>
 
       <div id="RegisterForm">
+
+        <p>Name</p>
+        <TextInput
+          type="name"
+          placeholder={inputNameError ? "Plaese enter your username" : "Name"}
+          value={name}
+          onChange={(e) => 
+          {
+            setName(e.target.value);
+            setInputNameError(false);
+          }}
+          className = {inputNameError ? "ErrorInput" : ""}
+          required
+        />
+
         <p>Email</p>
         <TextInput
           type="email"
-          placeholder="Email"
+          placeholder={inputEmailError ? "Plaese enter your email" : "Email"}
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => 
+          {
+            setEmail(e.target.value)
+            setInputEmailError(false);
+          }}
+          className = {inputEmailError ? "ErrorInput" : ""}
+          required
         />
 
         <p>Password</p>
         <TextInput
           type="password"
-          placeholder="Password"
+          placeholder={inputPasswordError ? "Plaese enter your password" : "Password"}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => 
+          {
+            setPassword(e.target.value)
+            setInputPasswordError(false);
+          }}
+          className = {inputPasswordError ? "ErrorInput" : ""}
+          required
         />
 
         <TextButton text = "Register" onClick={register}/>

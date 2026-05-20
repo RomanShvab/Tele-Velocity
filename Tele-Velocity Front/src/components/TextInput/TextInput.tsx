@@ -10,6 +10,9 @@ interface TextInputProps {
     /** Input type (e.g., "text", "password", "email") */
     type?: string;
 
+    /** Required value in input */
+    required?: boolean;
+
     /** HTML id attribute */
     id?: string;
     
@@ -28,6 +31,7 @@ interface TextInputProps {
 export default function TextInput({
     type = "text",
     placeholder = "",
+    required = false,
     id,
     className = "",
     style,
@@ -43,6 +47,7 @@ export default function TextInput({
             style={style}
             value={value}
             onChange={onChange}
+            required = {required}
         />
     );
 }

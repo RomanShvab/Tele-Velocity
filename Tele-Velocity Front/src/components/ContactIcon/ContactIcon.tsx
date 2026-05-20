@@ -2,7 +2,7 @@ import "./ContactIcon.css";
 
 interface ContactIconProps {
     /** User display name */
-    name: string;
+    name?: string;
 
     /** Avatar image url */
     avatar?: string | null;
@@ -40,7 +40,7 @@ export default function ContactIcon({
     className = "",
     style,
 }: ContactIconProps) {
-    const firstLetter = name.charAt(0).toUpperCase();
+    const firstLetter = name ? name.charAt(0).toUpperCase() : "?";
 
     return (
         <div
@@ -50,7 +50,7 @@ export default function ContactIcon({
                 width: size,
                 height: size,
                 fontSize: size * 0.6,
-                backgroundColor: getColor(name),
+                backgroundColor: getColor(name ? name : ""),
                 ...style,
             }}
         >

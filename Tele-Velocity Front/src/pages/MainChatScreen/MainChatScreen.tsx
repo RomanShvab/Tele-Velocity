@@ -10,6 +10,7 @@ import { chats } from "../../chats";
 import { useState } from "react";
 
 export default function MainChatScreen() {
+    
     const [sidebarWidth, setSidebarWidth] = useState(20);
     const [selectedChatId, setSelectedChatId] = useState<number | null>(null);    
     const currentUser = contacts[0];

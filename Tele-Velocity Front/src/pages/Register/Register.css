@@ -62,3 +62,10 @@
 #Link:hover {
     color: var(--primary-hover);
 }
+
+.ErrorInput {
+    border-color: var(--error-border);
+
+    box-shadow:
+        0 0 0 3px var(--error-shadow);
+}

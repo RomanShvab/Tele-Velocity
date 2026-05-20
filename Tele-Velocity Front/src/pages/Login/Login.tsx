@@ -6,33 +6,63 @@ import { Link, useNavigate } from "react-router-dom";
 import TextInput from "../../components/TextInput/TextInput";
 import TextButton from "../../components/TextButton/TextButton";
 
+import { useCurrentUser } from "../../CurrentUserContext";
+
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  const [inputEmailError, setInputEmailError] = useState(false);
+  const [inputPasswordError, setInputPasswordError] = useState(false);
+
+  const { setCurrentUser } = useCurrentUser();
+
   async function login() {
-  try {
+    try {
+      
+      if(email == "")
+      {
+        setInputEmailError(true);
+      }
+      
+      if(password == "")
+      {
+        setInputPasswordError(true);
+      }
 
-    const response = await fetch("http://localhost:8080/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        name: name,
-      }),
-    });
+      if(inputEmailError || inputPasswordError)
+        return;
 
-    const data = await response.text();
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
 
-    console.log(data);
+      if (!response.ok) {
+        alert("Logowanie nie powiodło się");
+        return;
+      }
 
-  } catch (error) {
-    console.error(error);
+      const data = await response.json();
+
+      console.log(data);
+
+      setCurrentUser(data);
+      localStorage.setItem("currentUser", JSON.stringify(data));
+
+      navigate("/chat");
+
+    } catch (error) {
+      console.error(error);
+    }
   }
-}
   return (
     <div id="LoginPage">
       <div>
@@ -43,19 +73,33 @@ function Login() {
         <p>Please enter your username and password to log in.</p>
       </div>
       <div id="LoginForm">
-        <p>Username</p>
-        <TextInput 
-          type="email"
-          placeholder="Username" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)}/>
-        <p>Password</p>
-        <TextInput 
-          type="password" 
-          placeholder="Password" 
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <p>Email</p>
+          <TextInput
+            type="email"
+            placeholder={inputEmailError ? "Plaese enter your email" : "Email"}
+            value={email}
+            onChange={(e) => 
+            {
+              setEmail(e.target.value)
+              setInputEmailError(false);
+            }}
+            className = {inputEmailError ? "ErrorInput" : ""}
+            required
+          />
+        
+          <p>Password</p>
+          <TextInput
+            type="password"
+            placeholder={inputPasswordError ? "Plaese enter your password" : "Password"}
+            value={password}
+            onChange={(e) => 
+            {
+              setPassword(e.target.value)
+              setInputPasswordError(false);
+            }}
+            className = {inputPasswordError ? "ErrorInput" : ""}
+            required
+          />
         <TextButton text = "Log In" onClick={login}/>
         <Link id="Link" to="/register">
           Register

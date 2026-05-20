@@ -8,6 +8,11 @@
     --primary-light: rgba(189, 222, 253, 1);
     --primary-hover: rgba(0, 84, 122, 1);
 
+    --error-border: rgba(239, 68, 68, 1);
+    --error-text: rgba(220, 38, 38, 1);
+    --error-bg: rgba(254, 242, 242, 1);
+    --error-shadow: rgba(239, 68, 68, 0.35);
+
     --border: rgba(200, 200, 200, 1);
     --icon-muted: rgba(120, 120, 120, 1);
 }
@@ -21,6 +26,11 @@
     --primary: rgba(51, 153, 255, 1);
     --primary-light: rgba(60, 100, 150, 0.3);
     --primary-hover: rgba(38, 122, 204, 1);
+    
+    --error-border: rgba(248, 113, 113, 1);
+    --error-text: rgba(252, 165, 165, 1);
+    --error-bg: rgba(42, 18, 21, 1);
+    --error-shadow: rgba(248, 113, 113, 0.4);
 
     --border: rgba(80, 80, 80, 1);
     --icon-muted: rgba(170, 170, 170, 1);
