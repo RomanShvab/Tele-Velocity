@@ -6,56 +6,79 @@ import { Link, useNavigate } from "react-router-dom";
 import TextInput from "../../components/TextInput/TextInput";
 import TextButton from "../../components/TextButton/TextButton";
 
+import { useCurrentUser } from "../../CurrentUserContext";
+
 function AddContact() {
+
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+  const { currentUser } = useCurrentUser();
+
   const [email, setEmail] = useState("");
 
-  const handleAddContact = () => {
-    if (!username.trim() || !email.trim()) {
-      alert("Uzupełnij wszystkie pola");
+  async function handleAddContact() {
+
+    if (!email.trim()) {
+      alert("Enter email");
       return;
     }
 
-    // 🔥 NA RAZIE MOCK (bez backendu)
-    console.log("Dodano kontakt:", { username, email });
+    try {
 
-    // tu później fetch do backendu
+      const response = await fetch(
+        `http://localhost:8080/contacts/add?userId=${currentUser?.id}&email=${email}`,
+        {
+          method: "POST",
+        }
+      );
 
-    navigate("/chat");
-  };
+      const data = await response.text();
+
+      alert(data);
+
+      if (data === "Contact added") {
+        navigate("/chat");
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div id="AddPage">
+
       <div>
         <div id="AddIcon">
-          <IoPersonAdd/>
+          <IoPersonAdd />
         </div>
+
         <h1>Add new contact</h1>
-        <p>Enter contact details to add a new person.</p>
+
+        <p>
+          Enter contact email to add a new person.
+        </p>
       </div>
 
       <div id="AddForm">
-        <p>Username</p>
-        <TextInput
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
 
         <p>Email</p>
+
         <TextInput
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <TextButton text = "Add Contact" onClick={handleAddContact}/>
+        <TextButton
+          text="Add Contact"
+          onClick={handleAddContact}
+        />
 
         <Link id="Link" to="/chat">
           Cancel
         </Link>
+
       </div>
     </div>
   );
