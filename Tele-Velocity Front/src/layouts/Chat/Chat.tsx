@@ -5,8 +5,9 @@ import ContactIcon from "../../components/ContactIcon/ContactIcon";
 export interface ChatMessage {
     id: number;
     senderId: number;
+    receiverId: number;
     content: string;
-    time: string;
+    createdAt: string;
 }
 
 export interface Contact {

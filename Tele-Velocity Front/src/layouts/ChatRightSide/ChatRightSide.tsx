@@ -42,6 +42,10 @@ interface ChatRightSideProps {
     /** Messages of selected chat */
     messages: ChatMessage[];
 
+    setMessages: React.Dispatch<
+        React.SetStateAction<ChatMessage[]>
+    >;
+
     /** HTML id attribute */
     id?: string;
 
@@ -56,12 +60,14 @@ export default function ChatRightSide({
     currentUser,
     contact,
     messages,
+    setMessages,
     id,
     className = "",
     style,
 }: ChatRightSideProps) {
     const [isSettingsOpen, setIsSettingsOpen] =
         useState(false);
+    const [message, setMessage] = useState("");
 
     if (!contact) {
         return (
@@ -75,6 +81,34 @@ export default function ChatRightSide({
                 </div>
             </div>
         );
+    }
+
+    async function sendMessage() {
+
+        if (!message.trim())
+            return;
+
+        if (!contact)
+        return;
+
+        try {
+
+            const response = await fetch(
+                `http://localhost:8080/messages/send?senderId=${currentUser.id}&receiverId=${contact.id}&content=${message}`,
+                {
+                    method: "POST",
+                }
+            );
+
+            const data = await response.json();
+
+            setMessages((prev) => [...prev, data]);
+
+            setMessage("");
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
@@ -148,11 +182,14 @@ export default function ChatRightSide({
 
                 <TextInput
                     placeholder="Type a message..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                 />
 
                 <IconButton
                     icon={<FiSend size={20}/>}
                     size = {40}
+                    onClick={sendMessage}
                 />
             </div>
         </div>

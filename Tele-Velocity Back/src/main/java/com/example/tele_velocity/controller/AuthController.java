@@ -27,6 +27,9 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@RequestBody RegisterRequest request) {
 
+        if(userRepository.existsByEmail(request.getEmail()))
+            return "User already exist";
+
         User user = new User();
 
         user.setName(request.getName());

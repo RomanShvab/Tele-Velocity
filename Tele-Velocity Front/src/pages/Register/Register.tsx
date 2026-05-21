@@ -55,7 +55,7 @@ function Register() {
         navigate("/")
         alert(data)
       } else {
-        console.log(data);
+        alert(data);
       }
 
 
