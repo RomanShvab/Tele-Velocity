@@ -13,6 +13,8 @@ interface TextInputProps {
     /** Required value in input */
     required?: boolean;
 
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+
     /** HTML id attribute */
     id?: string;
     
@@ -36,7 +38,8 @@ export default function TextInput({
     className = "",
     style,
     value,
-    onChange
+    onChange,
+    onKeyDown
 }: TextInputProps) {
     return (
         <input
@@ -48,6 +51,7 @@ export default function TextInput({
             value={value}
             onChange={onChange}
             required = {required}
+            onKeyDown={onKeyDown}
         />
     );
 }

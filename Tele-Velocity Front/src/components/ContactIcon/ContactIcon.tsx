@@ -5,7 +5,7 @@ interface ContactIconProps {
     name?: string;
 
     /** Avatar image url */
-    avatar?: string | null;
+    avatarUrl?: string | null;
 
     /** Icon size in pixels */
     size?: number;
@@ -36,7 +36,7 @@ function getColor(name: string) {
 
 export default function ContactIcon({
     name,
-    avatar,
+    avatarUrl,
     size = 50,
     id,
     className = "",
@@ -59,9 +59,9 @@ export default function ContactIcon({
             }}
             onClick = {onClick}
         >
-            {avatar != null && avatar != undefined ? (
+            {avatarUrl != null && avatarUrl != undefined ? (
                 <img
-                    src={avatar}
+                    src={avatarUrl}
                     alt={firstLetter}
                     className="ContactIcon-image"
                 />

@@ -9,21 +9,19 @@ import ChatRightSide from "../../layouts/ChatRightSide/ChatRightSide";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import {useSelectdedContact } from "../../contexts/SelectedContactContest";
 
-import type { User } from "../../types/user";
 import type { Message } from "../../types/message";
+import type { ChatPreview } from "../../layouts/ContactList/ContactList";
 
 export default function MainChatScreen() {
 
     const { currentUser } = useCurrentUser();
     const { selectedContact } = useSelectdedContact();
 
-    const [contacts, setContacts] = useState<User[]>([]);
+    const [chatPreviews, setChatPreviews] = useState<ChatPreview[]>([]);
 
     const [sidebarWidth, setSidebarWidth] = useState(20);
 
-    useEffect(() => {
-
-        async function loadContacts() {
+    async function loadContacts() {
 
             if (!currentUser)
                 return;
@@ -31,20 +29,20 @@ export default function MainChatScreen() {
             try {
 
                 const response = await fetch(
-                    `http://localhost:8080/contacts/${currentUser.id}`
+                    `http://localhost:8080/contacts/chat-previews/${currentUser.id}`
                 );
 
                 const data = await response.json();
 
-                setContacts(data);
+                setChatPreviews(data);
 
             } catch (error) {
                 console.error(error);
             }
         }
 
+    useEffect(() => {
         loadContacts();
-
     }, [currentUser]);
 
     const [messages, setMessages] = useState<Message[]>([]);
@@ -75,46 +73,39 @@ export default function MainChatScreen() {
 
     }, [selectedContact]);
 
-    function getLastMessage(contactId: number) {
+    function formatMessageTime(time: string) {
 
-        const chatMessages = messages.filter(
-            (message) =>
-                (message.senderId === currentUser?.id &&
-                    message.receiverId === contactId)
-                ||
-                (message.senderId === contactId &&
-                    message.receiverId === currentUser?.id)
-        );
+        if (!time)
+            return "";
 
-        if (chatMessages.length === 0) {
-            return {
-                content: "No messages yet",
-                time: "",
-            };
-        }
+        const messageDate = new Date(time);
 
-        const lastMessage =
-            chatMessages[chatMessages.length - 1];
+        const now = new Date();
 
-        return {
-            content: lastMessage.content,
-            time: new Date(
-                lastMessage.createdAt
-            ).toLocaleTimeString([], {
+        const isToday =
+            messageDate.toDateString() === now.toDateString();
+
+        if (isToday) {
+
+            return messageDate.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
-            }),
-        };
+            });
+        }
+
+        return messageDate.toLocaleDateString("pl-PL", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+        });
     }
 
     return (
         <div className="MainChatScreen">
             <ChatSidebar
-                chats={contacts.map((contact) => ({
-                    id: contact.id,
-                    name: contact.name,
-                    lastMessage: getLastMessage(contact.id).content,
-                    time: getLastMessage(contact.id).time,
+                chats={chatPreviews.map((chat) => ({
+                    ...chat,
+                    time: formatMessageTime(chat.time),
                 }))}
                 style={{
                     width: `${sidebarWidth}%`,
@@ -127,6 +118,7 @@ export default function MainChatScreen() {
                 currentUser={currentUser ?? undefined}
                 messages={messages}
                 setMessages={setMessages}
+                loadContacts={loadContacts}
             />
         </div>
     );

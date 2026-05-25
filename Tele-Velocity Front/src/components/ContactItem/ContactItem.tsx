@@ -13,7 +13,7 @@ interface ContactItemProps {
     time?: string;
 
     /** Avatar image URL */
-    avatar?: string;
+    avatarUrl?: string;
 
     /** Whether the contact item is selected */
     selected?: boolean;
@@ -35,7 +35,7 @@ export default function ContactItem({
     name,
     lastMessage,
     time,
-    avatar,
+    avatarUrl,
     id,
     selected = false,
     onClick,
@@ -55,7 +55,7 @@ export default function ContactItem({
         >
             <ContactIcon
                 name={name}
-                avatar={avatar}
+                avatarUrl={avatarUrl}
                 size={50}
             />
 
@@ -72,7 +72,7 @@ export default function ContactItem({
 
                 <div className="RightContactItemInfo">
                     <span className="ContactItemTime">
-                        {time ? time : "TimeNotFound"}
+                        {time ? time : ""}
                     </span>
                 </div>
             </div>

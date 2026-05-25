@@ -9,7 +9,7 @@ export interface ChatPreview {
 
     name: string;
 
-    avatar?: string;
+    avatarUrl?: string;
 
     lastMessage: string;
 
@@ -49,7 +49,7 @@ export default function ContactList({
                     name={chat.name}
                     lastMessage={chat.lastMessage}
                     time={chat.time}
-                    avatar={chat.avatar}
+                    avatarUrl={chat.avatarUrl}
                     selected={selectedContact?.id == chat.id}
                     onClick={async () => {
                         const response = await fetch(`http://localhost:8080/contacts/users/${chat.id}`);

@@ -28,6 +28,8 @@ interface ChatRightSideProps {
         React.SetStateAction<ChatMessage[]>
     >;
 
+    loadContacts: () => Promise<void>;
+
     /** HTML id attribute */
     id?: string;
 
@@ -46,6 +48,7 @@ export default function ChatRightSide({
     id,
     className = "",
     style,
+    loadContacts
 }: ChatRightSideProps) {
     const [isSettingsOpen, setIsSettingsOpen] =
         useState(false);
@@ -87,6 +90,8 @@ export default function ChatRightSide({
             setMessages((prev) => [...prev, data]);
 
             setMessage("");
+
+            await loadContacts();
 
         } catch (error) {
             console.error(error);
@@ -164,6 +169,15 @@ export default function ChatRightSide({
                     placeholder="Type a message..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
+                    onKeyDown={(e) => {
+
+                    if (e.key === "Enter") {
+
+                        e.preventDefault();
+
+                        sendMessage();
+                    }
+                }}
                 />
 
                 <IconButton

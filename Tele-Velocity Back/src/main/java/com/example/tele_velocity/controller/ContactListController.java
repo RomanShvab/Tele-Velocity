@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.tele_velocity.dto.AuthResponse;
+import com.example.tele_velocity.dto.ChatPreviewResponse;
 import com.example.tele_velocity.model.Contact;
+import com.example.tele_velocity.model.Message;
 import com.example.tele_velocity.model.User;
 import com.example.tele_velocity.repository.ContactRepository;
 import com.example.tele_velocity.repository.UserRepository;
+import com.example.tele_velocity.services.ContactService;
+import com.example.tele_velocity.services.MessageService;
 
 @RestController
 @RequestMapping("/contacts")
@@ -24,13 +28,19 @@ public class ContactListController {
 
     private final ContactRepository contactRepository;
     private final UserRepository userRepository;
+    private final ContactService contactService;
+    private final MessageService messageService;
 
     public ContactListController(
             ContactRepository contactRepository,
-            UserRepository userRepository
+            UserRepository userRepository,
+            ContactService contactService,
+            MessageService messageService
     ) {
         this.contactRepository = contactRepository;
         this.userRepository = userRepository;
+        this.contactService = contactService;
+        this.messageService = messageService;
     }
 
     @PostMapping("/add")
@@ -103,4 +113,56 @@ public class ContactListController {
         
         return new AuthResponse(user);
     }
+
+    @GetMapping("/chat-previews/{userId}")
+        public List<ChatPreviewResponse> getChatPreviews(
+                @PathVariable Long userId
+        ) {
+
+        List<User> contacts =
+                contactService.getContacts(userId);
+
+        List<ChatPreviewResponse> previews =
+                new ArrayList<>();
+
+        for (User contact : contacts) {
+
+                Message lastMessage =
+                        messageService.getLastMessageBetweenUsers(
+                                userId,
+                                contact.getId()
+                        );
+
+                previews.add(
+                        new ChatPreviewResponse(
+                                contact.getId(),
+                                contact.getName(),
+                                contact.getAvatarUrl(),
+
+                                lastMessage != null
+                                        ? lastMessage.getContent()
+                                        : "",
+
+                                lastMessage != null
+                                        ? lastMessage
+                                        .getCreatedAt()
+                                        .toString()
+                                        : ""
+                        )
+                );
+        }
+
+        previews.sort((a, b) -> {
+
+                if (a.getTime() == null || a.getTime().isEmpty())
+                        return 1;
+
+                if (b.getTime() == null || b.getTime().isEmpty())
+                        return -1;
+
+                return b.getTime().compareTo(a.getTime());
+        });
+
+        return previews;
+        }
 }
