@@ -8,7 +8,7 @@ import AddContact from "./pages/AddContact/AddContact.tsx";
 import Settings from "./pages/Settings/Settings.tsx";
 
 import {CurrentUserProvider} from "./contexts/CurrentUserContext.tsx";
-import { SelectedContactProvider } from "./contexts/SelectedContactContest.tsx";
+import { SelectedContactProvider } from "./contexts/SelectedContactContext.tsx";
 
 import "./App.css";
 

@@ -2,7 +2,7 @@ import "./ContactList.css";
 
 import ContactItem from "../../components/ContactItem/ContactItem";
 
-import { useSelectdedContact } from "../../contexts/SelectedContactContest";
+import { useSelectedContact } from "../../contexts/SelectedContactContext";
 
 export interface ChatPreview {
     id: number;
@@ -36,7 +36,7 @@ export default function ContactList({
     className = "",
     style,
 }: ContactListProps) {
-    const { selectedContact, setSelectedContact } = useSelectdedContact();
+    const { selectedContact, setSelectedContact } = useSelectedContact();
     return (
         <div
             id={id}

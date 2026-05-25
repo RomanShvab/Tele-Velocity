@@ -33,7 +33,7 @@ export function SelectedContactProvider({children} : {children: ReactNode}) {
     );
 }
 
-export function useSelectdedContact() {
+export function useSelectedContact() {
 
     const context = useContext(SelectedContactContext);
 

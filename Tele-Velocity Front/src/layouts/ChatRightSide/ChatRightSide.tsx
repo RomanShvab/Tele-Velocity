@@ -9,8 +9,11 @@ import TextInput from "../../components/TextInput/TextInput";
 import IconButton from "../../components/IconButton/IconButton";
 import Chat from "../Chat/Chat";
 
+import {useSelectedContact} from "../../contexts/SelectedContactContext";
+
 import type {ChatMessage} from "../Chat/Chat";
 import type { User } from "../../types/user";
+import { BsChatFill } from "react-icons/bs";
 
 
 
@@ -50,6 +53,8 @@ export default function ChatRightSide({
     style,
     loadContacts
 }: ChatRightSideProps) {
+    const { selectedContact } = useSelectedContact();
+
     const [isSettingsOpen, setIsSettingsOpen] =
         useState(false);
     const [message, setMessage] = useState("");
@@ -148,7 +153,44 @@ export default function ChatRightSide({
             <div className="ChatRightSideMain">                
                 {isSettingsOpen ? (
                     <div>
-                        Contact details and settings would go here. This is just a placeholder.
+                        <div>
+                            <div id = "TopLeftSettingsContactSideWrapper">
+                                <div id = "TopLeftSettingsContactSide">
+                                    <ContactIcon
+                                        name={selectedContact?.name}
+                                        size={160}
+                                        //avatar={selectedContact.avatar}
+                                    />
+                                    <div id = "Description">
+                                        <h2>{selectedContact?.name}</h2>
+                                        <p>offline</p>
+
+                                        <div id="DescriptionBio">
+                                            <span id="DescriptionBioLabel">Bio</span>
+                                            <p>{selectedContact?.bio ? selectedContact.bio : "No bio available"}</p>
+                                        </div>
+
+                                        <button>
+                                            <BsChatFill id = "MessageIcon" size={20} />
+                                            Message
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className = "SelectedContactSettingsInfo">
+                                        <p>username</p>
+                                        <p className = "SelectedContactSettingsInfoP">{selectedContact?.email}</p>
+                                    </div>
+                                    <div className = "SelectedContactSettingsInfo">
+                                        <p>phone</p>
+                                        <p className = "SelectedContactSettingsInfoP">{selectedContact?.phone ? selectedContact.phone : "Not provided"}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+
+                            </div>
+                        </div>
                     </div>
                 ) : (
                     <Chat

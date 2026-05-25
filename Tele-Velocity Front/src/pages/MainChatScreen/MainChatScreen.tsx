@@ -7,7 +7,7 @@ import Resizer from "../../layouts/Resizer/Resizer";
 import ChatRightSide from "../../layouts/ChatRightSide/ChatRightSide";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import {useSelectdedContact } from "../../contexts/SelectedContactContest";
+import {useSelectedContact } from "../../contexts/SelectedContactContext";
 
 import type { Message } from "../../types/message";
 import type { ChatPreview } from "../../layouts/ContactList/ContactList";
@@ -15,7 +15,7 @@ import type { ChatPreview } from "../../layouts/ContactList/ContactList";
 export default function MainChatScreen() {
 
     const { currentUser } = useCurrentUser();
-    const { selectedContact } = useSelectdedContact();
+    const { selectedContact } = useSelectedContact();
 
     const [chatPreviews, setChatPreviews] = useState<ChatPreview[]>([]);
 

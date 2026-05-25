@@ -101,3 +101,153 @@
 
     background-color: var(--bg-secondary);
 }
+
+
+#TopLeftSettingsContactSideWrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 24px;
+    padding: 22px 22px 12px;
+    flex-wrap: wrap;
+}
+
+#TopLeftSettingsContactSide {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex: 0 0 min(560px, 100%);
+    max-width: 560px;
+    border-radius: 32px;
+    background-color: var(--bg-secondary);
+    padding: 28px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06), 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+#Description {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+    flex: 1;
+}
+
+#Description h2 {
+    margin: 0;
+    font-size: clamp(2rem, 2.5vw, 2.6rem);
+    color: var(--text-main);
+    line-height: 1.05;
+}
+
+#Description p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+#Description p:first-of-type {
+    opacity: 0.7;
+    font-size: 0.95rem;
+}
+
+#DescriptionBio {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 14px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.02);
+    margin-top: 10px;
+    width: auto;
+    max-width: 100%;
+}
+
+#DescriptionBioLabel {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+#DescriptionBio p {
+    margin: 0;
+    color: var(--text-main);
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+#Description button {
+    margin-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 999px;
+    background-color: var(--primary);
+    color: var(--text-on-accent, #fff);
+    font-weight: 600;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    cursor: pointer;
+    width: auto;
+    max-width: 240px;
+    min-width: 175px;
+}
+
+#Description button:hover {
+    transform: translateY(-1px);
+    background-color: var(--primary-hover);
+}
+
+#MessageIcon {
+    display: inline-flex;
+    align-items: center;
+}
+
+#TopLeftSettingsContactSideWrapper > div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: min(280px, 100%);
+}
+
+.SelectedContactSettingsInfo {
+    padding: 16px 18px;
+    border-radius: 28px;
+    background-color: var(--bg-secondary);
+}
+
+.SelectedContactSettingsInfo > p:first-child {
+    margin: 0 0 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+}
+
+.SelectedContactSettingsInfoP {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+    word-break: break-word;
+}
+
+@media (max-width: 1000px) {
+    #TopLeftSettingsContactSide {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    #TopLeftSettingsContactSideWrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #TopLeftSettingsContactSideWrapper > div:last-child {
+        width: 100%;
+    }
+}
+

@@ -68,7 +68,7 @@ function Settings() {
     <div id="SettingsPage">      
       <div id="SettingsSidebar">
         <div id="UserPreview">
-          <ContactIcon name = {currentUser?.name}  avatar = {currentUser?.avatarUrl} size = {70} />
+          <ContactIcon name = {currentUser?.name}  avatarUrl = {currentUser?.avatarUrl} size = {70} />
           <div className="UserInfo">
             <p className="UserName">{currentUser?.name}</p>
             <p className="UserPhone">{currentUser?.phone ? currentUser?.phone : "Set Phone number"}</p>
@@ -90,7 +90,7 @@ function Settings() {
             localStorage.removeItem("currentUser");
             navigate("/");
           }
-          } className={activeTab === "chat" ? "active" : ""}>
+          } className={activeTab === "logout" ? "active" : ""}>
             Log Out
           </button>
         </div>
