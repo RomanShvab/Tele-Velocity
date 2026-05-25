@@ -2,14 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import type { ReactNode } from "react";
 
-interface User {
-  id?: number;
-  avatarUrl?: string;
-  bio?: string;
-  email: string;
-  name: string;
-  phone?: string;
-}
+import type {User} from "../types/user"
 
 interface CurrentUserContextType {
   currentUser: User | null;

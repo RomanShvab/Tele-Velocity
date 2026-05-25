@@ -90,4 +90,17 @@ public class ContactListController {
 
         return result;
     }
+
+    @GetMapping("/users/{id}")
+    public AuthResponse getUSer(
+        @PathVariable Long id
+    )
+    {
+        User user = userRepository.findById(id).orElse(null);
+
+        if(user == null)
+            return null;
+        
+        return new AuthResponse(user);
+    }
 }

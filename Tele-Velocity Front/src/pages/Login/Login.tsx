@@ -6,10 +6,12 @@ import { Link, useNavigate } from "react-router-dom";
 import TextInput from "../../components/TextInput/TextInput";
 import TextButton from "../../components/TextButton/TextButton";
 
-import { useCurrentUser } from "../../CurrentUserContext";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 function Login() {
+
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
@@ -63,6 +65,7 @@ function Login() {
       console.error(error);
     }
   }
+  
   return (
     <div id="LoginPage">
       <div>

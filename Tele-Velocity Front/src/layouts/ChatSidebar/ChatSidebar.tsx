@@ -28,12 +28,6 @@ interface ChatSidebarProps {
 
     /** Inline styles */
     style?: React.CSSProperties;
-
-    /** Called when user selects a chat */
-    onChatSelect: (chatId: number) => void;
-
-    /** ID of the currently selected chat */
-    SelectedChatId?: number | null;
 }
 
 export default function ChatSidebar({
@@ -41,8 +35,6 @@ export default function ChatSidebar({
     id,
     className,
     style,
-    onChatSelect,
-    SelectedChatId,
 }: ChatSidebarProps) {
 
     const navigate = useNavigate();
@@ -89,7 +81,7 @@ export default function ChatSidebar({
                 />
             </div>
 
-            <ContactList chats={chats} onSelectChat={onChatSelect} selectedChatId={SelectedChatId}/>
+            <ContactList chats={chats}/>
 
             <IconButton
                 icon={<MdAdd size={40} />}

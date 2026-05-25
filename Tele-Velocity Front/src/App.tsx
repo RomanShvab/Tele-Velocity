@@ -7,7 +7,8 @@ import Register from "./pages/Register/Register.tsx";
 import AddContact from "./pages/AddContact/AddContact.tsx";
 import Settings from "./pages/Settings/Settings.tsx";
 
-import {CurrentUserProvider} from "./CurrentUserContext.tsx";
+import {CurrentUserProvider} from "./contexts/CurrentUserContext.tsx";
+import { SelectedContactProvider } from "./contexts/SelectedContactContest.tsx";
 
 import "./App.css";
 
@@ -27,8 +28,12 @@ function App() {
       <BrowserRouter>
         <CurrentUserProvider>
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/chat" element={<MainChatScreen />} />
+            <Route path="/" element={<Login />} />            
+            <Route path="/chat" element={
+              <SelectedContactProvider>
+              <MainChatScreen />
+              </SelectedContactProvider>
+            } />            
             <Route path="/register" element={<Register />} />
             <Route path="/add-contact" element={<AddContact />} />
             <Route path="/settings" element={<Settings />} />

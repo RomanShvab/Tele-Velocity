@@ -2,7 +2,7 @@ import "./Settings.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ContactIcon from "../../components/ContactIcon/ContactIcon";
-import { useCurrentUser } from "../../CurrentUserContext";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 function Settings() {
   const [activeTab, setActiveTab] = useState("account");

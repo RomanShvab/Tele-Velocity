@@ -2,7 +2,7 @@ import "./IconButton.css";
 
 interface IconButtonProps {
     /** React node to be displayed as the button's icon */
-    icon: React.ReactNode;
+    icon?: React.ReactNode;
 
     /** Tooltip text */
     title?: string;
@@ -44,7 +44,7 @@ export default function IconButton({
                 ...style,
             }}
         >
-            {icon}
+            {icon ? icon : "?"}
         </button>
     );
 }

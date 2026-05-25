@@ -21,7 +21,7 @@ export interface ChatProps {
     messages: ChatMessage[];
 
     /** The current user participating in the chat */
-    currentUser: Contact;
+    currentUser?: Contact;
 
     /** The contact with whom the current user is chatting */
     selectedContact: Contact;
@@ -47,8 +47,8 @@ export default function ChatComponent({
     return (
         <div className={`Chat ${className || ""}`} style={style} id={id}>
             {messages.map((message) => (
-                <div key={message.id} className={`ChatMessage ${message.senderId === currentUser.id ? "ChatMessageSent" : "ChatMessageReceived"}`}>
-                    <ContactIcon className="ChatMessageAvatar" name={message.senderId === currentUser.id ? currentUser.name : selectedContact.name} size={40}/>
+                <div key={message.id} className={`ChatMessage ${message.senderId === currentUser?.id ? "ChatMessageSent" : "ChatMessageReceived"}`}>
+                    <ContactIcon className="ChatMessageAvatar" name={message.senderId === currentUser?.id ? currentUser.name : selectedContact.name} size={40}/>
                     <div className="ChatMessageContent">{message.content}</div>
                 </div>
             ))}

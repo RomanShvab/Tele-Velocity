@@ -18,6 +18,8 @@ interface ContactIconProps {
 
     /** Inline styles */
     style?: React.CSSProperties;
+
+    onClick?: () => void;
 }
 
 function getColor(name: string) {
@@ -39,6 +41,8 @@ export default function ContactIcon({
     id,
     className = "",
     style,
+    onClick,
+    
 }: ContactIconProps) {
     const firstLetter = name ? name.charAt(0).toUpperCase() : "?";
 
@@ -53,6 +57,7 @@ export default function ContactIcon({
                 backgroundColor: getColor(name ? name : ""),
                 ...style,
             }}
+            onClick = {onClick}
         >
             {avatar != null && avatar != undefined ? (
                 <img

@@ -1,11 +1,8 @@
 import "./ChatRightSide.css";
 
-import {
-    FiMoreVertical,
-    FiX,
-    FiSend,
-    FiPaperclip,
-} from "react-icons/fi";
+import { useState } from "react";
+
+import {FiMoreVertical, FiX, FiSend, FiPaperclip} from "react-icons/fi";
 
 import ContactIcon from "../../components/ContactIcon/ContactIcon";
 import TextInput from "../../components/TextInput/TextInput";
@@ -13,31 +10,16 @@ import IconButton from "../../components/IconButton/IconButton";
 import Chat from "../Chat/Chat";
 
 import type {ChatMessage} from "../Chat/Chat";
+import type { User } from "../../types/user";
 
-import { useState } from "react";
 
-export interface Contact {
-    id: number;
-
-    name: string;
-
-    description: string;
-
-    username: string;
-
-    phone: string;
-
-    avatar?: string | null;
-
-    isOnline?: boolean;
-}
 
 interface ChatRightSideProps {
     /** Current user of the chat application */
-    currentUser: Contact;
+    currentUser?: User;
 
     /** Currently selected contact */
-    contact?: Contact;
+    contact?: User;
 
     /** Messages of selected chat */
     messages: ChatMessage[];
@@ -94,7 +76,7 @@ export default function ChatRightSide({
         try {
 
             const response = await fetch(
-                `http://localhost:8080/messages/send?senderId=${currentUser.id}&receiverId=${contact.id}&content=${message}`,
+                `http://localhost:8080/messages/send?senderId=${currentUser?.id}&receiverId=${contact.id}&content=${message}`,
                 {
                     method: "POST",
                 }
@@ -127,7 +109,7 @@ export default function ChatRightSide({
                     <ContactIcon
                         name={contact.name}
                         size={40}
-                        avatar={contact.avatar}
+                        //avatar={contact.avatar}
                     />
 
                     <div className="ChatRightSideContactInfo">
@@ -136,9 +118,7 @@ export default function ChatRightSide({
                         </div>
 
                         <div className="ChatRightSideContactStatus">
-                            {contact.isOnline
-                                ? "online"
-                                : "offline"}
+                            {"online"}
                         </div>
                     </div>
                 </div>

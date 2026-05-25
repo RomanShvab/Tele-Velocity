@@ -4,13 +4,13 @@ import ContactIcon from "../ContactIcon/ContactIcon";
 
 interface ContactItemProps {
     /** User display name */
-    name: string;
+    name?: string;
 
     /** Last message content */
-    lastMessage: string;
+    lastMessage?: string;
 
     /** Message timestamp */
-    time: string;
+    time?: string;
 
     /** Avatar image URL */
     avatar?: string;
@@ -62,17 +62,17 @@ export default function ContactItem({
             <div className="ContactItemInfo">
                 <div className="LeftContactItemInfo">
                     <p className="ContactItemName">
-                        {name}
+                        {name ? name : "NameNotFound"}
                     </p>
 
                     <p className="ContactItemLastMessage">
-                        {lastMessage}
+                        {lastMessage ? lastMessage : "LastMessageNotFound"}
                     </p>
                 </div>
 
                 <div className="RightContactItemInfo">
                     <span className="ContactItemTime">
-                        {time}
+                        {time ? time : "TimeNotFound"}
                     </span>
                 </div>
             </div>

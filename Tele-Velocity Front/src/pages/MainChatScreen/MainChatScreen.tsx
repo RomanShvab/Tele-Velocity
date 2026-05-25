@@ -1,43 +1,25 @@
 import "./MainChatScreen.css";
 
+import { useState, useEffect } from "react";
+
 import ChatSidebar from "../../layouts/ChatSidebar/ChatSidebar";
 import Resizer from "../../layouts/Resizer/Resizer";
 import ChatRightSide from "../../layouts/ChatRightSide/ChatRightSide";
-import type { Contact as RightContact } from "../../layouts/ChatRightSide/ChatRightSide";
 
-import { useCurrentUser } from "../../CurrentUserContext";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import {useSelectdedContact } from "../../contexts/SelectedContactContest";
 
-import { chats } from "../../chats";
-
-import { useState, useEffect } from "react";
-
-interface Contact {
-    id: number;
-    name: string;
-    email: string;
-    avatarUrl?: string;
-    bio?: string;
-    phone?: string;
-}
-
-interface Message {
-    id: number;
-    senderId: number;
-    receiverId: number;
-    content: string;
-    createdAt: string;
-}
+import type { User } from "../../types/user";
+import type { Message } from "../../types/message";
 
 export default function MainChatScreen() {
 
     const { currentUser } = useCurrentUser();
+    const { selectedContact } = useSelectdedContact();
 
-    const [contacts, setContacts] = useState<Contact[]>([]);
+    const [contacts, setContacts] = useState<User[]>([]);
 
     const [sidebarWidth, setSidebarWidth] = useState(20);
-
-    const [selectedChatId, setSelectedChatId] =
-        useState<number | null>(null);
 
     useEffect(() => {
 
@@ -64,41 +46,6 @@ export default function MainChatScreen() {
         loadContacts();
 
     }, [currentUser]);
-
-    const rawSelectedContact = contacts.find(
-        (contact) => contact.id === selectedChatId
-    );
-
-    const selectedContact: RightContact | undefined = rawSelectedContact
-        ? {
-              id: rawSelectedContact.id,
-              name: rawSelectedContact.name,
-              description: rawSelectedContact.bio ?? "",
-              username: rawSelectedContact.email ?? "",
-              phone: rawSelectedContact.phone ?? "",
-              avatar: rawSelectedContact.avatarUrl ?? null,
-              isOnline: false,
-          }
-        : undefined;
-    const currentUserContact: RightContact = currentUser
-        ? {
-              id: currentUser.id ?? 0,
-              name: currentUser.name,
-              description: currentUser.bio ?? "",
-              username: currentUser.email,
-              phone: currentUser.phone ?? "",
-              avatar: currentUser.avatarUrl ?? null,
-              isOnline: true,
-          }
-        : {
-              id: 0,
-              name: "",
-              description: "",
-              username: "",
-              phone: "",
-              avatar: null,
-              isOnline: false,
-          };
 
     const [messages, setMessages] = useState<Message[]>([]);
 
@@ -162,7 +109,6 @@ export default function MainChatScreen() {
 
     return (
         <div className="MainChatScreen">
-
             <ChatSidebar
                 chats={contacts.map((contact) => ({
                     id: contact.id,
@@ -173,19 +119,15 @@ export default function MainChatScreen() {
                 style={{
                     width: `${sidebarWidth}%`,
                 }}
-                onChatSelect={setSelectedChatId}
-                SelectedChatId={selectedChatId}
             />
-
-            <Resizer setWidth={setSidebarWidth} />
+              <Resizer setWidth={setSidebarWidth} />
             
             <ChatRightSide
-                contact={selectedContact}
-                currentUser={currentUserContact}
+                contact={selectedContact ?? undefined}
+                currentUser={currentUser ?? undefined}
                 messages={messages}
                 setMessages={setMessages}
             />
-
         </div>
     );
 }

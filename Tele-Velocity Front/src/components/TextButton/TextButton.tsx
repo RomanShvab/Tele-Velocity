@@ -2,7 +2,7 @@ import "./TextButton.css";
 
 interface TextButtonProps {
     /** Text displayed inside button */
-    text: string;
+    text?: string;
 
     /** Tooltip text */
     title?: string;
@@ -53,7 +53,7 @@ export default function TextButton({
                 ...style,
             }}
         >
-            {text}
+            {text ? text : "TextNotFound"}
         </button>
     );
 }

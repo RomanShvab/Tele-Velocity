@@ -149,9 +149,10 @@
     transition: 0.2s;
 }
 
-.Card.Small:hover {
+.CardLeft.Small:hover {
     background: var(--primary);
     color: white;
+    transition: 0.2s;
 }
 
 #UserInfo {
