@@ -1,0 +1,33 @@
+.FormLayout {
+    display: flex;
+    flex-direction: column;
+
+    width: 400px;
+
+    padding: 30px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+
+    gap: 20px;
+
+    background-color: var(--bg-secondary);
+    border-radius: 20px;
+}
+
+.FormLayout p {
+    color: var(--text-main);
+    font-weight: 500;
+    align-self: start;
+}
+
+.FormLayout a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 14px;
+    align-self: start;
+}
+
+.FormLayout a:hover {
+    color: var(--primary-hover);
+}
