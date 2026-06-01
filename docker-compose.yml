@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: Tele-Velocity-Postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: tele_velocity
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d tele_velocity"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "5444:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+  backend:
+    build: ./Tele-Velocity Back
+    container_name: Tele-Velocity-Back
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+  frontend:
+    build: ./Tele-Velocity Front
+    container_name: Tele-Velocity-Front
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"

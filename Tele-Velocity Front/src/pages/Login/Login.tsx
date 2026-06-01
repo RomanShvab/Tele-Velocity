@@ -7,6 +7,7 @@ import TextInput from "../../components/TextInput/TextInput";
 import TextButton from "../../components/TextButton/TextButton";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { API_URL } from "../../api";
 
 function Login() {
 
@@ -23,36 +24,50 @@ function Login() {
   async function login() {
     try {
       
-      if(email == "")
-      {
+      let hasError = false;
+
+      if (email === "") {
         setInputEmailError(true);
+        hasError = true;
       }
-      
-      if(password == "")
-      {
+
+      if (password === "") {
         setInputPasswordError(true);
+        hasError = true;
       }
 
-      if(inputEmailError || inputPasswordError)
-        return;
+      if (hasError) return;
 
-      const response = await fetch("http://localhost:8080/auth/login", {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: email,
-          password: password,
+          email,
+          password,
         }),
       });
 
+      const text = await response.text();
+      let data = null;
+
+      try {
+        data = text ? JSON.parse(text) : null;
+      } catch (parseError) {
+        console.warn("Login response could not be parsed as JSON:", parseError, text);
+      }
+
       if (!response.ok) {
-        alert("Logowanie nie powiodło się");
+        const message = data?.message || "Logowanie nie powiodło się";
+        alert(message);
         return;
       }
 
-      const data = await response.json();
+      if (!data) {
+        alert("Otrzymano pustą lub niepoprawną odpowiedź serwera podczas logowania.");
+        return;
+      }
 
       console.log(data);
 

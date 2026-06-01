@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ContactIcon from "../../components/ContactIcon/ContactIcon";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { API_URL } from "../../api";
 
 function Settings() {
   const [activeTab, setActiveTab] = useState("account");
@@ -48,7 +49,7 @@ function Settings() {
     updatedUser[field as keyof typeof updatedUser] = newValue;
 
     const response = await fetch(
-      `http://localhost:8080/auth/user/${currentUser.id}`,
+      `${API_URL}/auth/user/${currentUser.id}`,
       {
         method: "PUT",
         headers: {

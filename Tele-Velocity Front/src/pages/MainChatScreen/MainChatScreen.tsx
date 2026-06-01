@@ -11,6 +11,7 @@ import {useSelectedContact } from "../../contexts/SelectedContactContext";
 
 import type { Message } from "../../types/message";
 import type { ChatPreview } from "../../layouts/ContactList/ContactList";
+import { API_URL } from "../../api";
 
 export default function MainChatScreen() {
 
@@ -29,7 +30,7 @@ export default function MainChatScreen() {
             try {
 
                 const response = await fetch(
-                    `http://localhost:8080/contacts/chat-previews/${currentUser.id}`
+                    `${API_URL}/contacts/chat-previews/${currentUser.id}`
                 );
 
                 const data = await response.json();
@@ -57,7 +58,7 @@ export default function MainChatScreen() {
             try {
 
                 const response = await fetch(
-                    `http://localhost:8080/messages/chat?user1=${currentUser.id}&user2=${selectedContact.id}`
+                    `${API_URL}/messages/chat?user1=${currentUser.id}&user2=${selectedContact.id}`
                 );
 
                 const data = await response.json();

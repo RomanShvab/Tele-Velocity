@@ -3,6 +3,7 @@ import "./ContactList.css";
 import ContactItem from "../../components/ContactItem/ContactItem";
 
 import { useSelectedContact } from "../../contexts/SelectedContactContext";
+import { API_URL } from "../../api";
 
 export interface ChatPreview {
     id: number;
@@ -52,7 +53,7 @@ export default function ContactList({
                     avatarUrl={chat.avatarUrl}
                     selected={selectedContact?.id == chat.id}
                     onClick={async () => {
-                        const response = await fetch(`http://localhost:8080/contacts/users/${chat.id}`);
+                        const response = await fetch(`${API_URL}/contacts/users/${chat.id}`);
                         const user = await response.json();
 
                         console.log(user);

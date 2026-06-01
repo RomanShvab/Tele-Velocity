@@ -18,7 +18,7 @@ import com.example.tele_velocity.repository.UserRepository;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000"})
 public class AuthController {
 
     @Autowired

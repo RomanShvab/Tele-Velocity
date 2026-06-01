@@ -7,6 +7,7 @@ import TextInput from "../../components/TextInput/TextInput";
 import TextButton from "../../components/TextButton/TextButton";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { API_URL } from "../../api";
 
 function AddContact() {
 
@@ -26,7 +27,7 @@ function AddContact() {
     try {
 
       const response = await fetch(
-        `http://localhost:8080/contacts/add?userId=${currentUser?.id}&email=${email}`,
+        `${API_URL}/contacts/add?userId=${currentUser?.id}&email=${email}`,
         {
           method: "POST",
         }

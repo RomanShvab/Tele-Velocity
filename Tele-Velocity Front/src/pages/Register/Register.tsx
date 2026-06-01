@@ -5,6 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 import TextButton from "../../components/TextButton/TextButton";
 import TextInput from "../../components/TextInput/TextInput";
+import { API_URL } from "../../api";
 
 function Register() {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ function Register() {
       if(inputNameError || inputEmailError || inputPasswordError)
         return;
 
-      const response = await fetch("http://localhost:8080/auth/register", {
+      const response = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

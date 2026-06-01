@@ -15,6 +15,8 @@ import type {ChatMessage} from "../Chat/Chat";
 import type { User } from "../../types/user";
 import { BsChatFill } from "react-icons/bs";
 
+import { API_URL } from "../../api";
+
 
 
 interface ChatRightSideProps {
@@ -84,7 +86,7 @@ export default function ChatRightSide({
         try {
 
             const response = await fetch(
-                `http://localhost:8080/messages/send?senderId=${currentUser?.id}&receiverId=${contact.id}&content=${message}`,
+                `${API_URL}/messages/send?senderId=${currentUser?.id}&receiverId=${contact.id}&content=${message}`,
                 {
                     method: "POST",
                 }
