@@ -5,6 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 import TextInput from "../../components/TextInput/TextInput";
 import TextButton from "../../components/TextButton/TextButton";
+import AuthHeader from "../../components/Header/Header";
+
+import FormLayout from "../../layouts/FormLayout/FormLayout";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { API_URL } from "../../api";
@@ -49,19 +52,13 @@ function AddContact() {
   return (
     <div id="AddPage">
 
-      <div>
-        <div id="AddIcon">
-          <IoPersonAdd />
-        </div>
+      <AuthHeader
+        icon={<IoPersonAdd />}
+        title="Add new contact"
+        description="Enter contact email to add a new person."
+      />
 
-        <h1>Add new contact</h1>
-
-        <p>
-          Enter contact email to add a new person.
-        </p>
-      </div>
-
-      <div id="AddForm">
+      <FormLayout>
 
         <p>Email</p>
 
@@ -80,7 +77,8 @@ function AddContact() {
           Cancel
         </Link>
 
-      </div>
+      </FormLayout>
+
     </div>
   );
 }

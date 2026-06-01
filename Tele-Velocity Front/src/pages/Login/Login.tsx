@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import TextInput from "../../components/TextInput/TextInput";
 import TextButton from "../../components/TextButton/TextButton";
+import Header from "../../components/Header/Header";
+import FormLayout from "../../layouts/FormLayout/FormLayout";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { API_URL } from "../../api";
@@ -83,46 +85,43 @@ function Login() {
   
   return (
     <div id="LoginPage">
-      <div>
-        <div id = "LoginIcon">
-          <IoSend/>
-        </div>
-        <h1>Log in to Tele-Velocity</h1>
-        <p>Please enter your username and password to log in.</p>
-      </div>
-      <div id="LoginForm">
+
+      <Header
+        icon={<IoSend />}
+        title="Log in to Tele-Velocity"
+        description="Please enter your username and password to log in."
+      />
+
+      <FormLayout>
+
         <p>Email</p>
-          <TextInput
-            type="email"
-            placeholder={inputEmailError ? "Plaese enter your email" : "Email"}
-            value={email}
-            onChange={(e) => 
-            {
-              setEmail(e.target.value)
-              setInputEmailError(false);
-            }}
-            className = {inputEmailError ? "ErrorInput" : ""}
-            required
-          />
-        
-          <p>Password</p>
-          <TextInput
-            type="password"
-            placeholder={inputPasswordError ? "Plaese enter your password" : "Password"}
-            value={password}
-            onChange={(e) => 
-            {
-              setPassword(e.target.value)
-              setInputPasswordError(false);
-            }}
-            className = {inputPasswordError ? "ErrorInput" : ""}
-            required
-          />
-        <TextButton text = "Log In" onClick={login}/>
+
+        <TextInput
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <p>Password</p>
+
+        <TextInput
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <TextButton
+          text="Log In"
+          onClick={login}
+        />
+
         <Link id="Link" to="/register">
           Register
         </Link>
-      </div>
+
+      </FormLayout>
     </div>
   );
 }
