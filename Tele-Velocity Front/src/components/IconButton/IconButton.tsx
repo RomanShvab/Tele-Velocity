@@ -21,11 +21,17 @@ interface IconButtonProps {
 
     /** Callback function to be called when the button is clicked */
     onClick?: () => void;
+
+    onMouseDown?: () => void;
+
+    onMouseUp?: () => void;
 }
 
 export default function IconButton({
     icon,
     onClick,
+    onMouseDown,
+    onMouseUp,
     size = 50,
     id,
     className = "",
@@ -37,6 +43,8 @@ export default function IconButton({
             id={id}
             className={`IconButton ${className}`}
             onClick={onClick}
+            onMouseDown={onMouseDown}
+            onMouseUp={onMouseUp}
             title={title}
             style={{
                 width: size,

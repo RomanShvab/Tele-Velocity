@@ -10,6 +10,7 @@ import AuthHeader from "../../components/Header/Header";
 import FormLayout from "../../layouts/FormLayout/FormLayout";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { useNotification } from "../../contexts/NotificationContext";
 import { API_URL } from "../../api";
 
 function AddContact() {
@@ -17,13 +18,14 @@ function AddContact() {
   const navigate = useNavigate();
 
   const { currentUser } = useCurrentUser();
+  const { notify } = useNotification();
 
   const [email, setEmail] = useState("");
 
   async function handleAddContact() {
 
     if (!email.trim()) {
-      alert("Enter email");
+      notify("Enter email", "error");
       return;
     }
 
@@ -37,10 +39,10 @@ function AddContact() {
       );
 
       const data = await response.text();
+      const success = data === "Contact added";
+      notify(data, success ? "success" : "error");
 
-      alert(data);
-
-      if (data === "Contact added") {
+      if (success) {
         navigate("/chat");
       }
 

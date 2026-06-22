@@ -1,8 +1,8 @@
 import "./ChatRightSide.css";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-import {FiMoreVertical, FiX, FiSend, FiPaperclip} from "react-icons/fi";
+import {FiMoreVertical, FiX, FiSend, FiPaperclip, FiMic} from "react-icons/fi";
 
 import ContactIcon from "../../components/ContactIcon/ContactIcon";
 import TextInput from "../../components/TextInput/TextInput";
@@ -61,6 +61,10 @@ export default function ChatRightSide({
         useState(false);
     const [message, setMessage] = useState("");
 
+    const recorderRef = useRef<MediaRecorder | null>(null);
+    const streamRef = useRef<MediaStream | null>(null);
+    const chunksRef = useRef<Blob[]>([]);
+
     if (!contact) {
         return (
             <div
@@ -73,6 +77,50 @@ export default function ChatRightSide({
                 </div>
             </div>
         );
+    }
+
+    async function startVoiceRecording() {
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true
+        });
+        const recorder = new MediaRecorder(stream);
+
+        chunksRef.current = [];
+
+        recorder.ondataavailable = (event) => {
+            chunksRef.current.push(event.data);
+        };
+
+        recorder.onstop = async () => {
+            const audioBlob = new Blob(
+                chunksRef.current,
+                {
+                    type: "audio/webm"
+                }
+            );
+
+            const formData = new FormData();
+
+            formData.append("file", audioBlob, "voice_message.webm");
+
+            await fetch(
+                `${API_URL}/messages/voice`,
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+        }
+
+        recorderRef.current = recorder;
+        recorder.start();
+        streamRef.current = stream;
+    }
+    
+    async function stopVoiceRecording() {
+        if (streamRef.current) {
+            streamRef.current.getTracks().forEach(track => track.stop());
+        }
     }
 
     async function sendMessage() {
@@ -223,12 +271,20 @@ export default function ChatRightSide({
                     }
                 }}
                 />
-
-                <IconButton
-                    icon={<FiSend size={20}/>}
-                    size = {40}
-                    onClick={sendMessage}
-                />
+                {message.trim().length > 0 ? (
+                    <IconButton
+                        icon={<FiSend size={20}/>}
+                        size = {40}
+                        onClick={sendMessage}
+                    />
+                ) : (
+                    <IconButton
+                        icon={<FiMic size={20}/>}
+                        size = {40}
+                        onMouseDown = {startVoiceRecording}
+                        onMouseUp = {stopVoiceRecording}
+                    />
+                )}
             </div>
         </div>
     );

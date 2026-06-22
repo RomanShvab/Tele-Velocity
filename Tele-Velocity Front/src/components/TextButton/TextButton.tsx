@@ -42,6 +42,7 @@ export default function TextButton({
 }: TextButtonProps) {
     return (
         <button
+            type="button"
             id={id}
             className={`TextButton ${className}`}
             onClick={onClick}

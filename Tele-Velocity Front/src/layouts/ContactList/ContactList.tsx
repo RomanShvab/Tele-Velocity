@@ -55,9 +55,6 @@ export default function ContactList({
                     onClick={async () => {
                         const response = await fetch(`${API_URL}/contacts/users/${chat.id}`);
                         const user = await response.json();
-
-                        console.log(user);
-
                         setSelectedContact(user);
                     }}
                 />

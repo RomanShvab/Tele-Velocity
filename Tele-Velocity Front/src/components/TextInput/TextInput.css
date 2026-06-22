@@ -27,6 +27,13 @@
         0 0 0 3px var(--primary-light);
 }
 
+.TextInput.ErrorInput,
+.ErrorInput {
+    border-color: #ea6b7e;
+    background-color: rgba(234, 107, 126, 0.1);
+    color: #7d1f2b;
+}
+
 .TextInput:disabled {
     opacity: 0.6;
 

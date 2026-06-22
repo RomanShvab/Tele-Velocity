@@ -9,6 +9,7 @@ import Header from "../../components/Header/Header";
 import FormLayout from "../../layouts/FormLayout/FormLayout";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { useNotification } from "../../contexts/NotificationContext";
 import { API_URL } from "../../api";
 
 function Login() {
@@ -22,6 +23,7 @@ function Login() {
   const [inputPasswordError, setInputPasswordError] = useState(false);
 
   const { setCurrentUser } = useCurrentUser();
+  const { notify } = useNotification();
 
   async function login() {
     try {
@@ -38,7 +40,11 @@ function Login() {
         hasError = true;
       }
 
-      if (hasError) return;
+      if (hasError) 
+      {
+        notify("Please fill in all fields.", "error");
+        return;
+      }
 
       const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
@@ -52,26 +58,26 @@ function Login() {
       });
 
       const text = await response.text();
-      let data = null;
+      let data: any = null;
 
       try {
         data = text ? JSON.parse(text) : null;
       } catch (parseError) {
-        console.warn("Login response could not be parsed as JSON:", parseError, text);
+        data = text;
       }
 
       if (!response.ok) {
-        const message = data?.message || "Logowanie nie powiodło się";
-        alert(message);
+        const message = typeof data === "string" ? data : data?.message || "Logowanie nie powiodło się";
+        notify(message, "error");
         return;
       }
 
-      if (!data) {
-        alert("Otrzymano pustą lub niepoprawną odpowiedź serwera podczas logowania.");
+      if (!data || typeof data === "string") {
+        notify("Otrzymano pustą lub niepoprawną odpowiedь серwera podczas logowania.", "error");
         return;
       }
 
-      console.log(data);
+      notify("Zalogowano pomyślnie!", "success");
 
       setCurrentUser(data);
       localStorage.setItem("currentUser", JSON.stringify(data));
@@ -98,18 +104,26 @@ function Login() {
 
         <TextInput
           type="email"
-          placeholder="Email"
+          placeholder={inputEmailError ? "Please enter your email" : "Email"}
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value)
+            if (inputEmailError) setInputEmailError(false);
+          }}
+          className={inputEmailError ? "ErrorInput" : ""}
         />
 
         <p>Password</p>
 
         <TextInput
           type="password"
-          placeholder="Password"
+          placeholder={inputPasswordError ? "Please enter your password" : "Password"}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value)
+            if (inputPasswordError) setInputPasswordError(false);
+          } }
+          className={inputPasswordError ? "ErrorInput" : ""}
         />
 
         <TextButton

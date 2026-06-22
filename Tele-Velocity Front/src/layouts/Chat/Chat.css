@@ -30,8 +30,11 @@
 .ChatMessageContent {
     border-radius: 18px;
     padding: 6px 14px;
-    gap: 10px;
-    display: flex;
+    display: inline-block;
+    max-width: 25vw;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    white-space: normal;
 }
 
 .ChatMessageSent {

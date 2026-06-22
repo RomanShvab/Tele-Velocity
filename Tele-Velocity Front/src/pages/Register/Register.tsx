@@ -1,21 +1,19 @@
-import "./Register.css";
+﻿import "./Register.css";
 import { IoSend } from "react-icons/io5";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import TextButton from "../../components/TextButton/TextButton";
 import TextInput from "../../components/TextInput/TextInput";
-<<<<<<< HEAD
-import { API_URL } from "../../api";
-=======
 import AuthHeader from "../../components/Header/Header";
-
 import FormLayout from "../../layouts/FormLayout/FormLayout";
->>>>>>> 782b8fdc65de7c724a1bd205e0b83406cd9065e4
+import { useNotification } from "../../contexts/NotificationContext";
+import { API_URL } from "../../api";
 
 function Register() {
 
   const navigate = useNavigate();
+  const { notify } = useNotification();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -56,14 +54,16 @@ function Register() {
         }),
       });
 
-      const data = await response.text();
+      const text = await response.text();
+      const message = text || "Rejestracja nie powiodĹ‚a siÄ™";
 
-      if (data === "User created") {
-        navigate("/");
-        alert(data);
-      } else {
-        alert(data);
+      if (!response.ok) {
+        notify(message, "error");
+        return;
       }
+
+      notify(message, "success");
+      navigate("/");
 
     } catch (error) {
       console.error(error);

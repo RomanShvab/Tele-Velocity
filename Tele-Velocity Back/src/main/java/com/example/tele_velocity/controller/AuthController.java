@@ -1,6 +1,8 @@
 package com.example.tele_velocity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,34 +27,31 @@ public class AuthController {
     private UserRepository userRepository;
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
 
-        if(userRepository.existsByEmail(request.getEmail()))
-            return "User already exist";
+        if(userRepository.existsByEmail(request.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
+        }
 
         User user = new User();
-
         user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
-
         userRepository.save(user);
 
-        return "User created";
+        return ResponseEntity.ok("User created");
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
 
         User user = userRepository.findByEmail(request.getEmail());
 
-        if (user == null)
-            return null;
+        if (user == null || !user.getPassword().equals(request.getPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+        }
 
-        if (!user.getPassword().equals(request.getPassword()))
-            return null;
-
-        return new AuthResponse(user);
+        return ResponseEntity.ok(new AuthResponse(user));
     }
 
     @PutMapping("/user/{id}")
