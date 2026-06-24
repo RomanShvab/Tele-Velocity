@@ -13,6 +13,7 @@ export interface ChatMessage {
     content: string;
     createdAt: string;
     type: MessageType;
+    waveform?: string; // Optional property for audio messages
 }
 
 export interface Contact {
@@ -49,7 +50,6 @@ export default function ChatComponent({
     className, 
     style 
 }: ChatProps) {
-    console.log(messages);
     return (
         <div className={`Chat ${className || ""}`} style={style} id={id}>
             {messages.map((message) => (
@@ -58,11 +58,12 @@ export default function ChatComponent({
                     
                         {message.type === "TEXT" ? (
                             <div className="ChatMessageContent">
-                                message.content                            
+                                {message.content}
                             </div>
                         ) : (
                             <VoiceMessage
                                 src={`${API_URL}/uploads/voices/${message.content}`}
+                                waveform={message.waveform}
                             />
                         )}
                 </div>

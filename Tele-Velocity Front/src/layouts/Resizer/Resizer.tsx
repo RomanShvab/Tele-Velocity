@@ -15,8 +15,8 @@ interface ResizerProps {
 
 export default function Resizer({
     setWidth,
-    min = 20,
-    max = 40,
+    min = 320,
+    max = 300,
 }: ResizerProps) {
     const [isDragging, setIsDragging] =
         useState(false);
@@ -25,15 +25,12 @@ export default function Resizer({
         function handleMove(e: MouseEvent) {
             if (!isDragging) return;
 
-            const widthInPercents =
-                (e.clientX /
-                    window.innerWidth) *
-                100;
-
             const newWidth = Math.min(
                 max,
-                Math.max(min, widthInPercents)
+                Math.max(min, e.clientX)
             );
+
+            setWidth(newWidth);
 
             setWidth(newWidth);
         }

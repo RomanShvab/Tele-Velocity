@@ -26,6 +26,8 @@ public class Message {
 
     private LocalDateTime createdAt;
 
+    private String waveform;
+
     @Enumerated(EnumType.STRING)
     private MessageType type;
 
@@ -66,5 +68,13 @@ public class Message {
 
     public MessageType getType() {
         return type;
+    }
+
+    public String getWaveform() {
+        return waveform;
+    }
+
+    public void setWaveform(String waveform) {
+        this.waveform = waveform;
     }
 }

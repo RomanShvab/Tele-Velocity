@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -70,6 +71,64 @@ public class MessageController {
                 targetFile, 
                 StandardCopyOption.REPLACE_EXISTING
         );
+        ProcessBuilder pb = new ProcessBuilder(
+                "ffmpeg",
+                "-i",
+                targetFile.toString(),
+                "-ac",
+                "1",
+                "-ar",
+                "8000",
+                "-f",
+                "s16le",
+                "-"
+        );
+
+        pb.redirectErrorStream(true);
+        Process process = pb.start();
+
+        byte[] pcmData = process.getInputStream().readAllBytes();
+
+        List<Integer> waveform = new ArrayList<>();
+
+        int samplesPerBar = pcmData.length / 50;
+
+        for (int i = 0; i < 50; i++) {
+
+        int start = i * samplesPerBar;
+        int end = Math.min(start + samplesPerBar, pcmData.length);
+
+        long sum = 0;
+        int count = 0;
+
+        for (int j = start; j < end - 1; j += 2) {
+
+                short sample = (short)(
+                        (pcmData[j + 1] << 8)
+                        | (pcmData[j] & 0xff)
+                );
+
+                sum += Math.abs(sample);
+                count++;
+        }
+
+        int average = count > 0
+                ? (int)(sum / count)
+                : 0;
+
+        waveform.add(average);
+        }
+
+        int maxValue = waveform.stream()
+                .max(Integer::compareTo)
+                .orElse(1);
+
+        List<Integer> normalized = waveform.stream()
+                .map(value -> Math.max(
+                        3,
+                        (value * 30) / maxValue
+                ))
+                .toList();
 
         Message message = new Message(
                 senderId,
@@ -77,6 +136,8 @@ public class MessageController {
                 fileName,
                 MessageType.AUDIO
         );
+
+        message.setWaveform(normalized.toString());
 
         return messageRepository.save(message);
     }

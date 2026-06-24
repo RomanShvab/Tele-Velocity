@@ -20,7 +20,7 @@ export default function MainChatScreen() {
 
     const [chatPreviews, setChatPreviews] = useState<ChatPreview[]>([]);
 
-    const [sidebarWidth, setSidebarWidth] = useState(20);
+    const [sidebarWidth, setSidebarWidth] = useState(320);
 
     async function loadContacts() {
 
@@ -109,10 +109,11 @@ export default function MainChatScreen() {
                     time: formatMessageTime(chat.time),
                 }))}
                 style={{
-                    width: `${sidebarWidth}%`,
+                    width: `${sidebarWidth}px`,
+                    minWidth: `${sidebarWidth-100}px`,
                 }}
             />
-              <Resizer setWidth={setSidebarWidth} />
+              <Resizer setWidth={setSidebarWidth} min={320} max={400} />
             
             <ChatRightSide
                 contact={selectedContact ?? undefined}

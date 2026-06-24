@@ -65,6 +65,19 @@ export default function ChatRightSide({
     const streamRef = useRef<MediaStream | null>(null);
     const chunksRef = useRef<Blob[]>([]);
     
+        useEffect(() => {
+
+        const handleMouseUp = () => {
+            stopVoiceRecording();
+        };
+
+        window.addEventListener("mouseup", handleMouseUp);
+
+        return () => {
+            window.removeEventListener("mouseup", handleMouseUp);
+        };
+
+    }, []);
 
     if (!contact) {
         return (
@@ -79,6 +92,8 @@ export default function ChatRightSide({
             </div>
         );
     }
+
+    
 
     async function startVoiceRecording() {
         if (recorderRef.current) return;
@@ -100,9 +115,6 @@ export default function ChatRightSide({
                     type: "audio/webm"
                 }
             );
-
-            console.log("type:", audioBlob.type);
-            console.log("size:", audioBlob.size);
 
             const formData = new FormData();
 
@@ -188,21 +200,6 @@ export default function ChatRightSide({
             console.error(error);
         }
     }
-
-
-    useEffect(() => {
-
-        const handleMouseUp = () => {
-            stopVoiceRecording();
-        };
-
-        window.addEventListener("mouseup", handleMouseUp);
-
-        return () => {
-            window.removeEventListener("mouseup", handleMouseUp);
-        };
-
-    }, []);
 
     return (
         <div

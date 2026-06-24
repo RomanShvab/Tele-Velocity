@@ -17,17 +17,26 @@
     width: 42px;
     height: 42px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     border: none;
     border-radius: 50%;
 
+    background: var(--primary);
+    color: white;
+
     cursor: pointer;
 
-    font-size: 16px;
-
-    color: white;
-    background: var(--primary);
-
     flex-shrink: 0;
+
+    transition: all 0.2s ease;
+}
+
+.VoiceMessagePlay:hover {
+    background: var(--primary-hover);
+    transform: scale(1.05);
 }
 
 .VoiceMessageCenter {
@@ -38,22 +47,18 @@
     gap: 6px;
 }
 
-.VoiceMessageBar {
-    height: 6px;
-
-    overflow: hidden;
-
-    border-radius: 999px;
-
-    background: rgba(0,0,0,0.5);
+.VoiceWaveform {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 32px;
 }
 
-.VoiceMessageProgress {
-    height: 100%;
-
+.VoiceBar {
+    width: 3px;
+    background: white;
     border-radius: 999px;
-
-    background: var(--primary);
+    flex-shrink: 0;
 }
 
 .VoiceMessageTime {

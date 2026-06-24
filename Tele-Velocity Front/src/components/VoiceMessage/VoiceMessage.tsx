@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import "./VoiceMessage.css";
 
+import { IoPlay, IoPause } from "react-icons/io5";
+
 interface VoiceMessageProps {
     src: string;
+    waveform?: string;
 }
 
 export default function VoiceMessage({
-    src
+    src,
+    waveform
 }: VoiceMessageProps) {
 
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -61,9 +65,13 @@ export default function VoiceMessage({
 
     }, []);
 
+    const bars: number[] = waveform
+        ? JSON.parse(waveform)
+        : [];
+
     const progress =
         duration > 0
-            ? (currentTime / duration) * 100
+            ? (currentTime / duration)
             : 0;
 
     function formatTime(time: number) {
@@ -83,20 +91,37 @@ export default function VoiceMessage({
                 className="VoiceMessagePlay"
                 onClick={togglePlay}
             >
-                {isPlaying ? "⏸" : "▶"}
+                {isPlaying
+                    ? <IoPause size={16} />
+                    : <IoPlay size={16} />
+                }
             </button>
 
             <div className="VoiceMessageCenter">
 
-                <div className="VoiceMessageBar">
+                <div className="VoiceWaveform">
+                    {bars.map((height, index) => {
 
-                    <div
-                        className="VoiceMessageProgress"
-                        style={{
-                            width: `${progress}%`
-                        }}
-                    />
+                        const playedBars =
+                            Math.floor(progress * bars.length);
 
+                        const color = !isPlaying
+                            ? "#ffffff"
+                            : index < playedBars
+                                ? "#ffffff"
+                                : "#9db4d3";
+
+                        return (
+                            <div
+                                key={index}
+                                className="VoiceBar"
+                                style={{
+                                    height: `${height}px`,
+                                    backgroundColor: color
+                                }}
+                            />
+                        );
+                    })}
                 </div>
 
                 <div className="VoiceMessageTime">

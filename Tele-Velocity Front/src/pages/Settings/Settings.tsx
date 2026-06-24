@@ -11,8 +11,6 @@ function Settings() {
   const {setCurrentUser} = useCurrentUser();
   const navigate = useNavigate();
 
-  console.log(currentUser);
-
   async function changeUserData(field: string) {
 
     let promptText = "";
