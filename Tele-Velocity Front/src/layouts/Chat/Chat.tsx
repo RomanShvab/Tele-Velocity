@@ -1,6 +1,10 @@
 import "./Chat.css";
 
 import ContactIcon from "../../components/ContactIcon/ContactIcon";
+import VoiceMessage from "../../components/VoiceMessage/VoiceMessage";
+import { API_URL } from "../../api";
+
+export type MessageType = "TEXT" | "AUDIO";
 
 export interface ChatMessage {
     id: number;
@@ -8,6 +12,7 @@ export interface ChatMessage {
     receiverId: number;
     content: string;
     createdAt: string;
+    type: MessageType;
 }
 
 export interface Contact {
@@ -44,12 +49,22 @@ export default function ChatComponent({
     className, 
     style 
 }: ChatProps) {
+    console.log(messages);
     return (
         <div className={`Chat ${className || ""}`} style={style} id={id}>
             {messages.map((message) => (
                 <div key={message.id} className={`ChatMessage ${message.senderId === currentUser?.id ? "ChatMessageSent" : "ChatMessageReceived"}`}>
                     <ContactIcon className="ChatMessageAvatar" name={message.senderId === currentUser?.id ? currentUser.name : selectedContact.name} size={40}/>
-                    <div className="ChatMessageContent">{message.content}</div>
+                    
+                        {message.type === "TEXT" ? (
+                            <div className="ChatMessageContent">
+                                message.content                            
+                            </div>
+                        ) : (
+                            <VoiceMessage
+                                src={`${API_URL}/uploads/voices/${message.content}`}
+                            />
+                        )}
                 </div>
             ))}
         </div>

@@ -4,4 +4,5 @@ export interface Message {
     receiverId: number;
     content: string;
     createdAt: string;
+    type: "TEXT" | "AUDIO";
 }

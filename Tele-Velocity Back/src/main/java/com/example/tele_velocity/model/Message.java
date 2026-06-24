@@ -3,6 +3,8 @@ package com.example.tele_velocity.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,16 +26,21 @@ public class Message {
 
     private LocalDateTime createdAt;
 
+    @Enumerated(EnumType.STRING)
+    private MessageType type;
+
     public Message() {}
 
     public Message(
             Long senderId,
             Long receiverId,
-            String content
+            String content,
+            MessageType type
     ) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.content = content;
+        this.type = type;
         this.createdAt = LocalDateTime.now();
     }
 
@@ -55,5 +62,9 @@ public class Message {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public MessageType getType() {
+        return type;
     }
 }

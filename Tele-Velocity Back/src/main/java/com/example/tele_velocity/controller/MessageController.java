@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.tele_velocity.model.Message;
+import com.example.tele_velocity.model.MessageType;
 import com.example.tele_velocity.repository.MessageRepository;
 
 @RestController
@@ -42,15 +43,18 @@ public class MessageController {
         Message message = new Message(
                 senderId,
                 receiverId,
-                content
+                content,
+                MessageType.TEXT
         );
 
         return messageRepository.save(message);
     }
 
     @PostMapping("/voice")
-    public String uploadVoice(
-                @RequestParam("file") MultipartFile file
+    public Message uploadVoice(
+                @RequestParam("file") MultipartFile file,
+                @RequestParam Long senderId,
+                @RequestParam Long receiverId
         )
     throws IOException {
         String fileName = UUID.randomUUID() + ".webm";
@@ -67,7 +71,14 @@ public class MessageController {
                 StandardCopyOption.REPLACE_EXISTING
         );
 
-        return fileName;
+        Message message = new Message(
+                senderId,
+                receiverId,
+                fileName,
+                MessageType.AUDIO
+        );
+
+        return messageRepository.save(message);
     }
 
     @GetMapping("/chat")

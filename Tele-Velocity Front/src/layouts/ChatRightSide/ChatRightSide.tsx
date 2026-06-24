@@ -1,8 +1,9 @@
 import "./ChatRightSide.css";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import {FiMoreVertical, FiX, FiSend, FiPaperclip, FiMic} from "react-icons/fi";
+import { BsChatFill } from "react-icons/bs";
 
 import ContactIcon from "../../components/ContactIcon/ContactIcon";
 import TextInput from "../../components/TextInput/TextInput";
@@ -13,7 +14,6 @@ import {useSelectedContact} from "../../contexts/SelectedContactContext";
 
 import type {ChatMessage} from "../Chat/Chat";
 import type { User } from "../../types/user";
-import { BsChatFill } from "react-icons/bs";
 
 import { API_URL } from "../../api";
 
@@ -64,6 +64,7 @@ export default function ChatRightSide({
     const recorderRef = useRef<MediaRecorder | null>(null);
     const streamRef = useRef<MediaStream | null>(null);
     const chunksRef = useRef<Blob[]>([]);
+    
 
     if (!contact) {
         return (
@@ -80,6 +81,7 @@ export default function ChatRightSide({
     }
 
     async function startVoiceRecording() {
+        if (recorderRef.current) return;
         const stream = await navigator.mediaDevices.getUserMedia({
             audio: true
         });
@@ -99,27 +101,61 @@ export default function ChatRightSide({
                 }
             );
 
+            console.log("type:", audioBlob.type);
+            console.log("size:", audioBlob.size);
+
             const formData = new FormData();
 
-            formData.append("file", audioBlob, "voice_message.webm");
+            formData.append(
+                "file",
+                audioBlob,
+                "voice_message.webm"
+            );
 
-            await fetch(
+            formData.append(
+                "senderId",
+                String(currentUser?.id)
+            );
+
+            formData.append(
+                "receiverId",
+                String(contact?.id)
+            );
+
+            const response = await fetch(
                 `${API_URL}/messages/voice`,
                 {
                     method: "POST",
                     body: formData
                 }
             );
-        }
 
+            if (!response.ok) {
+                console.error("Voice upload failed");
+                return;
+            }
+
+            const message = await response.json();
+            setMessages(prev => [...prev, message]);
+        }
         recorderRef.current = recorder;
         recorder.start();
         streamRef.current = stream;
     }
     
     async function stopVoiceRecording() {
+
+        if (recorderRef.current) {
+            recorderRef.current.stop();
+            recorderRef.current = null;
+        }
+
         if (streamRef.current) {
-            streamRef.current.getTracks().forEach(track => track.stop());
+            streamRef.current
+                .getTracks()
+                .forEach(track => track.stop());
+
+            streamRef.current = null;
         }
     }
 
@@ -134,7 +170,7 @@ export default function ChatRightSide({
         try {
 
             const response = await fetch(
-                `${API_URL}/messages/send?senderId=${currentUser?.id}&receiverId=${contact.id}&content=${message}`,
+                `${API_URL}/messages/send?senderId=${currentUser?.id}&receiverId=${contact?.id}&content=${message}`,
                 {
                     method: "POST",
                 }
@@ -152,6 +188,21 @@ export default function ChatRightSide({
             console.error(error);
         }
     }
+
+
+    useEffect(() => {
+
+        const handleMouseUp = () => {
+            stopVoiceRecording();
+        };
+
+        window.addEventListener("mouseup", handleMouseUp);
+
+        return () => {
+            window.removeEventListener("mouseup", handleMouseUp);
+        };
+
+    }, []);
 
     return (
         <div
@@ -282,7 +333,6 @@ export default function ChatRightSide({
                         icon={<FiMic size={20}/>}
                         size = {40}
                         onMouseDown = {startVoiceRecording}
-                        onMouseUp = {stopVoiceRecording}
                     />
                 )}
             </div>

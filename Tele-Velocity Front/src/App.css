@@ -4,7 +4,8 @@
     --bg-secondary: rgba(255, 255, 255, 1);
     --text-main: rgba(0, 0, 0, 1);
     --text-secondary: rgba(80, 80, 80, 1);
-    --primary: rgba(0, 100, 146, 1);
+    --primary: rgba(51, 153, 255, 1);    
+    --primary-support: rgb(30, 91, 151);
     --primary-light: rgba(189, 222, 253, 1);
     --primary-hover: rgba(0, 84, 122, 1);
 
@@ -24,6 +25,7 @@
     --text-main: rgba(255, 255, 255, 1);
     --text-secondary: rgba(170, 170, 170, 1);
     --primary: rgba(51, 153, 255, 1);
+    --primary-support: rgb(30, 91, 151);
     --primary-light: rgba(60, 100, 150, 0.3);
     --primary-hover: rgba(38, 122, 204, 1);
     
