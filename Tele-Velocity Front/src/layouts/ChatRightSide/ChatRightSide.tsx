@@ -64,6 +64,16 @@ export default function ChatRightSide({
     const recorderRef = useRef<MediaRecorder | null>(null);
     const streamRef = useRef<MediaStream | null>(null);
     const chunksRef = useRef<Blob[]>([]);
+
+    const analyserRef = useRef<AnalyserNode | null>(null);
+    const animationRef = useRef<number | null>(null);
+
+    const audioContextRef = useRef<AudioContext | null>(null);
+
+    const recordingWaveRef = useRef<HTMLDivElement>(null);
+
+    const [volumeBars, setVolumeBars] =
+        useState<number[]>([]);
     
         useEffect(() => {
 
@@ -93,13 +103,80 @@ export default function ChatRightSide({
         );
     }
 
-    
+    function updateVolume() {
+
+        if (!analyserRef.current)
+            return;
+
+        const data = new Uint8Array(
+            analyserRef.current.frequencyBinCount
+        );
+
+        analyserRef.current.getByteTimeDomainData(data);;
+
+        let sum = 0;
+
+        for (const value of data) {
+            const normalized = (value - 128) / 128;
+            sum += normalized * normalized;
+        }
+
+        const rms = Math.sqrt(sum / data.length);
+
+        const volume = Math.min(
+            30,
+            Math.round(rms * 1000)
+        );
+
+        const maxBars =
+        recordingWaveRef.current
+            ? Math.floor(
+                recordingWaveRef.current.clientWidth / 6
+            )
+            : 50;
+
+        setVolumeBars(prev => {
+            const next = [...prev, Math.max(4, volume)];
+
+            if (next.length > maxBars) {
+                next.shift();
+            }
+
+            return next;
+        });
+
+        setTimeout(updateVolume, 20);
+    }
 
     async function startVoiceRecording() {
         if (recorderRef.current) return;
         const stream = await navigator.mediaDevices.getUserMedia({
-            audio: true
+            audio: {
+                echoCancellation: false,
+                noiseSuppression: false,
+                autoGainControl: false
+            }
         });
+
+        const audioContext = new AudioContext();
+        audioContextRef.current = audioContext;
+
+        const source =
+            audioContextRef.current?.createMediaStreamSource(stream);
+
+        const analyser =
+            audioContextRef.current?.createAnalyser();
+
+        analyser.fftSize = 2048;
+        analyser.smoothingTimeConstant = 0;
+
+        source.connect(analyser);
+
+        analyserRef.current = analyser;
+
+        
+        updateVolume();
+
         const recorder = new MediaRecorder(stream);
 
         chunksRef.current = [];
@@ -169,6 +246,19 @@ export default function ChatRightSide({
 
             streamRef.current = null;
         }
+
+        if (audioContextRef.current) {
+            await audioContextRef.current.close();
+            audioContextRef.current = null;
+        }
+
+        if (animationRef.current) {
+            cancelAnimationFrame(
+                animationRef.current
+            );
+        }
+
+        setVolumeBars([]);
     }
 
     async function sendMessage() {
@@ -305,20 +395,44 @@ export default function ChatRightSide({
                     size = {40}
                 />
 
-                <TextInput
-                    placeholder="Type a message..."
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    onKeyDown={(e) => {
+                {recorderRef.current ? (
 
-                    if (e.key === "Enter") {
+                    <div className="RecordingWave" ref={recordingWaveRef}>
 
-                        e.preventDefault();
+                        {volumeBars.map((height, index) => (
 
-                        sendMessage();
-                    }
-                }}
-                />
+                            <div
+                                key={index}
+                                className="RecordingBar"
+                                style={{
+                                    height: `${height}px`
+                                }}
+                            />
+
+                        ))}
+
+                    </div>
+
+                ) : (
+
+                    <TextInput
+                        placeholder="Type a message..."
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        onKeyDown={(e) => {
+
+                        if (e.key === "Enter") {
+
+                            e.preventDefault();
+
+                            sendMessage();
+                        }
+                        }}
+                    />
+
+                )}
+
+                
                 {message.trim().length > 0 ? (
                     <IconButton
                         icon={<FiSend size={20}/>}

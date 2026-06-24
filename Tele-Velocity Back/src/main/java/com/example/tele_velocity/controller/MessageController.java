@@ -91,32 +91,37 @@ public class MessageController {
 
         List<Integer> waveform = new ArrayList<>();
 
-        int samplesPerBar = pcmData.length / 50;
+        int totalSamples = pcmData.length / 2;
+        int samplesPerBar = totalSamples / 50;
 
         for (int i = 0; i < 50; i++) {
 
-        int start = i * samplesPerBar;
-        int end = Math.min(start + samplesPerBar, pcmData.length);
+                int start = i * samplesPerBar * 2;
 
-        long sum = 0;
-        int count = 0;
-
-        for (int j = start; j < end - 1; j += 2) {
-
-                short sample = (short)(
-                        (pcmData[j + 1] << 8)
-                        | (pcmData[j] & 0xff)
+                int end = Math.min(
+                        start + samplesPerBar * 2,
+                        pcmData.length
                 );
 
-                sum += Math.abs(sample);
-                count++;
-        }
+                double sumSquares = 0;
+                int count = 0;
 
-        int average = count > 0
-                ? (int)(sum / count)
-                : 0;
+                for (int j = start; j < end - 1; j += 2) {
 
-        waveform.add(average);
+                        short sample = (short)(
+                                (pcmData[j + 1] << 8)
+                                | (pcmData[j] & 0xff)
+                        );
+
+                        sumSquares += (double) sample * sample;
+                        count++;
+                }
+
+                int rms = count > 0
+                        ? (int)Math.sqrt(sumSquares / count)
+                        : 0;
+
+                waveform.add(rms);
         }
 
         int maxValue = waveform.stream()

@@ -234,6 +234,36 @@
     word-break: break-word;
 }
 
+.RecordingWave {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    gap: 2px;
+
+    height: 40px;
+
+    padding: 0 12px;
+
+    border-radius: 12px;
+
+    background: var(--surface);
+}
+
+.RecordingBar {
+    flex: 1;
+    min-width: 2px;
+
+    border-radius: 999px;
+    background: white;
+
+    transition: height 0.05s linear;
+}
+
 @media (max-width: 1000px) {
     #TopLeftSettingsContactSide {
         flex-direction: column;

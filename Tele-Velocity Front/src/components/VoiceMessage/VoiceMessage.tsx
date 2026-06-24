@@ -6,11 +6,15 @@ import { IoPlay, IoPause } from "react-icons/io5";
 interface VoiceMessageProps {
     src: string;
     waveform?: string;
+    className?: string;
+    style?: React.CSSProperties;
 }
 
 export default function VoiceMessage({
     src,
-    waveform
+    waveform,
+    className,
+    style
 }: VoiceMessageProps) {
 
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -85,7 +89,7 @@ export default function VoiceMessage({
     }
 
     return (
-        <div className="VoiceMessage">
+        <div className={`VoiceMessage ${className}`} style={style}>
 
             <button
                 className="VoiceMessagePlay"
@@ -109,7 +113,7 @@ export default function VoiceMessage({
                             ? "#ffffff"
                             : index < playedBars
                                 ? "#ffffff"
-                                : "#9db4d3";
+                                : "#ffffff86";
 
                         return (
                             <div

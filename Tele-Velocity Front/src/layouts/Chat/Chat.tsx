@@ -61,7 +61,7 @@ export default function ChatComponent({
                                 {message.content}
                             </div>
                         ) : (
-                            <VoiceMessage
+                            <VoiceMessage className="ChatMessageVoice"
                                 src={`${API_URL}/uploads/voices/${message.content}`}
                                 waveform={message.waveform}
                             />
