@@ -11,8 +11,6 @@ import { CurrentUserProvider } from "./contexts/CurrentUserContext.tsx";
 import { SelectedContactProvider } from "./contexts/SelectedContactContext.tsx";
 import { NotificationProvider } from "./contexts/NotificationContext.tsx";
 
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.tsx"
-
 import "./App.css";
 
 function App() {
@@ -31,50 +29,18 @@ function App() {
         <NotificationProvider>
           <CurrentUserProvider>
             <Routes>
-
-              <Route 
-                path="/" 
-                element={
-                  <Login/>
-                }
-              />
-
-              <Route 
-                path="/register" 
-                element={
-                  <Register/>
-                }
-              />
-
+              <Route path="/" element={<Login />} />            
               <Route
                 path="/chat"
                 element={
-                  <ProtectedRoute>
-                    <SelectedContactProvider>
-                      <MainChatScreen/>
-                    </SelectedContactProvider>
-                  </ProtectedRoute>
+                  <SelectedContactProvider>
+                    <MainChatScreen />
+                  </SelectedContactProvider>
                 }
               />            
-              
-              <Route 
-                path="/add-contact" 
-                element={
-                  <ProtectedRoute>
-                    <AddContact/>
-                  </ProtectedRoute>
-                }
-              />
-              
-              <Route 
-                path="/settings" 
-                element={
-                  <ProtectedRoute>
-                    <Settings/>
-                  </ProtectedRoute>
-                } 
-              />
-
+              <Route path="/register" element={<Register />} />
+              <Route path="/add-contact" element={<AddContact />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           </CurrentUserProvider>
         </NotificationProvider>

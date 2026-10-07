@@ -62,7 +62,7 @@
 }
 
 .ChatMessageReceived .ChatMessageAvatar {
-    order: 0;
+    order: 1;
 }
 
 .ChatMessageReceived .ChatMessageContent {
