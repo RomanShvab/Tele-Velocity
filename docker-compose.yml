@@ -1,42 +1,44 @@
+name: tele-velocity-release
 services:
   postgres:
     image: postgres:17
-    container_name: Tele-Velocity-Postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: tele_velocity
+      POSTGRES_PASSWORD: ${RELEASE_DB_PASSWORD:-1234}
+      POSTGRES_DB: tele_velocity_release
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d tele_velocity"]
+      test: ["CMD-SHELL", "pg_isready -U admin -d tele_velocity_release"]
       interval: 5s
       timeout: 5s
       retries: 10
     ports:
-      - "5444:5432"
+      - "127.0.0.1:5445:5432"
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
   backend:
     build: ./Tele-Velocity Back
-    container_name: Tele-Velocity-Back
     restart: unless-stopped
     depends_on:
       postgres:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/tele_velocity_release
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: ${RELEASE_DB_PASSWORD:-1234}
+      SPRING_JPA_SHOW_SQL: "false"
     volumes:
       - voice_uploads:/app/uploads
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8081:8080"
   frontend:
     build: ./Tele-Velocity Front
-    container_name: Tele-Velocity-Front
     restart: unless-stopped
     depends_on:
       - backend
     ports:
-      - "3000:80"
-
+      - "127.0.0.1:3001:80"
 volumes:
+  postgres_data:
   voice_uploads:
