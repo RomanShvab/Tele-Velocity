@@ -1,76 +1,114 @@
 # Tele-Velocity
 
-## Quick start on a new computer
+React + Spring Boot + PostgreSQL. Development branch: develop; stable branch:
+master. The launch commands build the current checkout. They never switch
+branches, pull, or push. Release means a production build of that checkout.
+For a stable Release, use a separate checkout of master.
 
-Install Git and Docker Desktop. On Windows, enable WSL 2 if prompted by
-the Docker Desktop installer. Start Docker Desktop and wait until its
-engine is ready. You do not need to install Java, Maven, Node.js,
-PostgreSQL, or ffmpeg separately: Docker downloads the required dependencies
-and builds the application.
+## Windows requirements
 
-Run the following commands in PowerShell or your terminal:
+Install Git and Docker Desktop with Linux containers (WSL 2). Start Docker
+Desktop and wait for its engine. Docker Compose 2.32.2 or newer is required.
+Java, Maven, Node, PostgreSQL and ffmpeg are provided inside containers.
+The first build requires internet access.
 
-```sh
-git clone https://github.com/RomanShvab/Tele-Velocity.git
-cd Tele-Velocity
-docker compose up -d --build
-```
+## One-command launch
 
-The first run requires an internet connection and may take several minutes.
-Open http://localhost:3000 once the backend has started.
+From PowerShell in the repository root:
 
-Check container status and backend logs:
+~~~powershell
+.\dev.cmd
+~~~
 
-```sh
-docker compose ps
-docker compose logs --tail=100 backend
-```
+Development runs in the foreground. Keep this terminal open for watching.
+React uses Vite Hot Module Replacement and polling for Windows source mounts.
+Backend Java and resources are synchronized into the container, compiled by
+Maven, and reloaded by Spring Boot DevTools with an application restart.
+Backend restarts briefly interrupt requests. Compilation errors appear in the
+terminal; fix them and save again. Changes to pom.xml rebuild the backend.
+DevTools is enabled only through the development Maven profile.
 
-## Restarting and updating
+After changing frontend dependencies, stop Development, run the following,
+then start Development again:
 
-Start the application from the project directory:
+~~~powershell
+docker compose -f docker-compose.dev.yml run --rm --no-deps frontend npm ci
+~~~
 
-```sh
-docker compose up -d
-```
+Dockerfile and Compose changes require restarting the launch command.
 
-Update to the latest version on GitHub (if you have no local changes):
+~~~powershell
+.\release.cmd
+~~~
 
-```sh
-git pull --ff-only
-docker compose up -d --build
-```
+Release builds the Spring Boot JAR and static React assets served by nginx,
+then starts in the background. It has no source mounts or automatic reload.
+Run the same command again to rebuild after source changes.
 
-Stop the application:
+| Setting | Development | Release |
+| --- | --- | --- |
+| Website | http://localhost:3000 | http://localhost:3001 |
+| Direct backend | http://localhost:8080 | http://localhost:8081 |
+| PostgreSQL host | localhost | localhost |
+| PostgreSQL port | 5444 | 5445 |
+| Database | tele_velocity_dev | tele_velocity_release |
+| User | admin | admin |
+| Default local password | 1234 | 1234 |
+| Compose project | tele-velocity-dev | tele-velocity-release |
 
-```sh
-docker compose down
-```
+Both environments can run simultaneously. Each has its own network, database
+volume and voice-upload volume. Ports bind to the local computer. Frontend
+requests use /api, proxied to the backend in the same environment, including
+voice uploads. VITE_API_URL can override this for another deployment.
 
-## Data and pgAdmin 4
+Optional local password overrides: create an ignored .env in the root:
 
-A fresh clone starts with an empty database. The backend creates tables
-on startup, and records are added when you register and use the application.
-Cloning the GitHub repository does not transfer data from another computer.
+~~~dotenv
+DEV_DB_PASSWORD=your-development-password
+RELEASE_DB_PASSWORD=your-release-password
+~~~
 
-The database is stored in the `postgres_data` directory, and voice files
-are stored in the `voice_uploads` Docker volume. Running `docker compose down`
-preserves both. To keep your data, do not delete `postgres_data` or run
-`docker compose down -v`.
+PostgreSQL initializes credentials only when its volume is empty. Changing
+.env does not change an existing database password; update it in PostgreSQL
+as well. Defaults are for local use. A public deployment needs separate
+credentials, HTTPS and access configuration.
 
-Use these connection settings in pgAdmin 4 installed on the same computer:
+## Status, logs and stopping
 
-| Field | Value |
-| --- | --- |
-| Host name/address | localhost |
-| Port | 5444 |
-| Maintenance database | tele_velocity |
-| Username | admin |
-| Password | 1234 |
+~~~powershell
+docker compose -f docker-compose.dev.yml ps
+docker compose -f docker-compose.dev.yml logs --tail=100 backend
+docker compose -f docker-compose.dev.yml down
 
-Find the tables under `Databases → tele_velocity → Schemas → public → Tables`.
-Use Refresh to update the list. To view records, right-click a table
-and select View/Edit Data → All Rows.
+docker compose -f docker-compose.yml ps
+docker compose -f docker-compose.yml logs --tail=100 backend
+docker compose -f docker-compose.yml down
+~~~
 
-Ports 3000, 8080, and 5444 must be available. These settings and the password
-are intended for local use.
+Ctrl+C stops the foreground Development session. Running down preserves data.
+Do not add -v unless you intend to delete that environment's volumes.
+A fresh environment starts with an empty database; the backend creates tables
+on startup (ddl-auto=update). Records are not copied between environments.
+
+## Existing data
+
+The previous postgres_data/ directory and previous Docker voice volume are
+left untouched. New projects use fresh named volumes, so old records do not
+appear automatically. Preserve old data; use PostgreSQL dump/restore and copy
+voice files if migration is needed. Stop old containers before Development
+if they occupy ports 3000, 8080 or 5444. Find them with docker ps -a.
+
+For pgAdmin, use the host, port, database, user and password from the table.
+Tables are under Databases → database → Schemas → public → Tables.
+
+## Configuration validation
+
+~~~powershell
+docker compose -f docker-compose.dev.yml config --quiet
+docker compose -f docker-compose.yml config --quiet
+~~~
+
+Backend watching uses the documented Compose sync+exec workflow:
+https://docs.docker.com/reference/compose-file/develop/
+and Spring Boot classpath restart:
+https://docs.spring.io/spring-boot/reference/using/devtools.html

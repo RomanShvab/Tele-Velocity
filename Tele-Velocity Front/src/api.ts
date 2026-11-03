@@ -1,4 +1,1 @@
-export const API_URL =
-    window.location.hostname === "localhost"
-        ? "http://localhost:8080"
-        : "https://basically-carried-italia-clinton.trycloudflare.com";
+export const API_URL = import.meta.env.VITE_API_URL ?? "/api";
